@@ -28,7 +28,6 @@ public class movement : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.Escape) == true)
         {
-            gameObject.
         }
     }
 
