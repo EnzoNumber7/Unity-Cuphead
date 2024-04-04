@@ -5,15 +5,20 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]private float speed = 5f;
+    [SerializeField] private float JumpPower;
     private Rigidbody2D rb;
-    private float x;
-    private float y;
+
+    [SerializeField] private GameObject feet;
 
     //kunai
     [SerializeField] private GameObject Kunai;
     [SerializeField] private Transform FirePoint;
+    private bool isUsed;
 
     private Vector2 mousePos;
+
+    [SerializeField] GameObject currentKunai;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,25 +28,49 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        x = Input.GetAxisRaw("Horizontal");
+        Vector2 currentVelocity = new Vector2(0,rb.velocity.y);
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetKey(KeyCode.A))
+        {
+            currentVelocity.x -= speed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            currentVelocity.x += speed;
+        }
+        if (Input.GetMouseButtonDown(0) && isUsed == false)
         {
             Shoot();
+            isUsed = true;
         }
-    }
+        if (Input.GetMouseButton(1) && isUsed == true)
+        {
+            currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && feet.GetComponent<Player_Feet>().isGrounded) 
+        {
+            rb.AddForce(new Vector2(0,JumpPower));
+        }
+        if(currentKunai != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && currentKunai.GetComponent<Kunai>().isAttached)
+            {
+                currentKunai.GetComponent<Kunai>().Detach(transform.position);
+            }
+        }
+        
 
-    private void FixedUpdate()
-    {
-        rb.velocity = new Vector2(x,y).normalized * speed;
+        if (currentKunai == null)
+        {
+            isUsed = false;
+        }
+        rb.velocity = currentVelocity;
     }
 
     private void Shoot()
     {
         float angle = Mathf.Atan2(mousePos.y - FirePoint.position.y, mousePos.x - FirePoint.position.x) * Mathf.Rad2Deg - 90f;
         FirePoint.localRotation = Quaternion.Euler(0, 0, angle);
-        Instantiate(Kunai, FirePoint.position,FirePoint.rotation);
+        currentKunai = Instantiate(Kunai, FirePoint.position,FirePoint.rotation);
     }
 }
