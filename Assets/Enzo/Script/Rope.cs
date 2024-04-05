@@ -9,6 +9,7 @@ public class Rope : MonoBehaviour
     public GameObject _ropeElement;
     GameObject _prevElement;
     public GameObject _player;
+    HingeJoint2D _top;
     void Start()
     {
         GenerateRope();
@@ -16,7 +17,7 @@ public class Rope : MonoBehaviour
 
     void Update()
     {
-        //FollowPlayer();
+        FollowPlayer();
         if (Input.GetKeyDown(KeyCode.C) == true)
         {
             AddElement();
@@ -34,6 +35,11 @@ public class Rope : MonoBehaviour
             HingeJoint2D hj = newElement.GetComponent<HingeJoint2D>();
             hj.connectedBody = _prevElement.GetComponent<Rigidbody2D>();
             _prevElement = newElement;
+
+            if (i == 0)
+            {
+                _top = hj;
+            }
         }
     }
 
@@ -52,6 +58,12 @@ public class Rope : MonoBehaviour
         newElement.transform.position = transform.position;
         HingeJoint2D hj = newElement.GetComponent<HingeJoint2D>();
         hj.connectedBody = _anchor.GetComponent<Rigidbody2D>();
+        newElement.GetComponent<RopeElement>()._belowObject = _top.gameObject;
+
+        _top.connectedBody = newElement.GetComponent<Rigidbody2D>();
+        _top.GetComponent<RopeElement>().ResetAnchor();
+        _top = hj;
+        
         _ropeSize++;
     }
 }

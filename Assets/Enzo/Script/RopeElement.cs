@@ -8,6 +8,13 @@ public class RopeElement : MonoBehaviour
     public GameObject _belowObject;
     void Start()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        ResetAnchor();
+    }
+
+    public void ResetAnchor()
+    {
         _aboveObject = GetComponent<HingeJoint2D>().connectedBody.gameObject;
         RopeElement aboveElement = _aboveObject.GetComponent<RopeElement>();
 
@@ -15,7 +22,7 @@ public class RopeElement : MonoBehaviour
         {
             aboveElement._belowObject = gameObject;
             float coordinate = _aboveObject.GetComponent<SpriteRenderer>().bounds.size.y;
-            GetComponent<HingeJoint2D>().connectedAnchor = new Vector2 (0, -coordinate);
+            GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, -coordinate);
         }
         else
         {

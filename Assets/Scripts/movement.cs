@@ -30,7 +30,7 @@ public class Movement : MonoBehaviour
 
         _rb.velocity = currentVel;
 
-        if (Input.GetKeyDown(KeyCode.Space) && _feet.GetComponent<FeetPlayer>().isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             _rb.AddForce(new Vector2(_rb.velocity.x, _jumpForce));
         }
