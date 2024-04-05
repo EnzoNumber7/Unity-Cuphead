@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float JumpPower;
     private Rigidbody2D rb;
 
+
+    [SerializeField] private GameObject Grab;
     [SerializeField] private GameObject feet;
+    [SerializeField] private GameObject firePoint;
 
     //kunai
     [SerializeField] private GameObject Kunai;
-    [SerializeField] private Transform FirePoint;
     private bool isUsed;
 
     private Vector2 mousePos;
@@ -30,7 +32,10 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 currentVelocity = new Vector2(0,rb.velocity.y);
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if(Input.GetKey(KeyCode.A))
+
+        firePointPos();
+
+        if (Input.GetKey(KeyCode.A))
         {
             currentVelocity.x -= speed;
         }
@@ -69,8 +74,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Shoot()
     {
-        float angle = Mathf.Atan2(mousePos.y - FirePoint.position.y, mousePos.x - FirePoint.position.x) * Mathf.Rad2Deg - 90f;
-        FirePoint.localRotation = Quaternion.Euler(0, 0, angle);
-        currentKunai = Instantiate(Kunai, FirePoint.position,FirePoint.rotation);
+        float angle = Mathf.Atan2(mousePos.y - firePoint.transform.position.y, mousePos.x - firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
+
+        firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+        currentKunai = Instantiate(Kunai, firePoint.transform.position, firePoint.transform.rotation);
+
+        Grab.GetComponent<Grab>().GetCurrentKunai(currentKunai);
+        
     }
+
+    private void firePointPos()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 firePointPos = firePoint.transform.position;
+        Vector2 playerPos = transform.position;
+        Vector2 distance = firePointPos - playerPos;
+
+        Vector2 direction = firePointPos - mousePos;
+        
+    }
+
 }
