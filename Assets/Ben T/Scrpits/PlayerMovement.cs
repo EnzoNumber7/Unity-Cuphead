@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float JumpPower;
     private Rigidbody2D rb;
 
+    [SerializeField] private float kunaiRadius;
+    [SerializeField] private float rangeRadius;
+    [SerializeField] private float stopPower;
+    [SerializeField] private float ropeStretch;
 
     [SerializeField] private GameObject Grab;
     [SerializeField] private GameObject feet;
@@ -34,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         firePointPos();
+        CheckRange();
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -90,10 +95,43 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 firePointPos = firePoint.transform.position;
         Vector2 playerPos = transform.position;
-        Vector2 distance = firePointPos - playerPos;
+        Vector2 direction = (mousePos - firePointPos).normalized;
 
-        Vector2 direction = firePointPos - mousePos;
+        firePoint.transform.position = playerPos + direction * kunaiRadius;
         
+        
+    }
+
+    private void CheckRange()
+    {
+        if (currentKunai == null)
+            return;
+
+        Kunai scriptKunai = currentKunai.GetComponent<Kunai>();
+        Vector2 playerPos = transform.position;
+        Vector2 KunaiPos = currentKunai.transform.position;
+        Vector2 direction = (playerPos - KunaiPos).normalized;
+
+
+        float distance = Vector2.Distance(KunaiPos, playerPos);
+        if(distance > rangeRadius && scriptKunai.attachable == true) 
+        {
+            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
+            KunaiRb.AddForce(direction * stopPower,ForceMode2D.Impulse);
+            KunaiRb.bodyType = RigidbodyType2D.Dynamic;
+            scriptKunai.attachable = false;
+            scriptKunai.fallen = true;
+        }
+        if(distance > rangeRadius + 1.5f && scriptKunai.fallen == true)
+        {
+            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
+            KunaiRb.AddForce((playerPos - direction) * ropeStretch, ForceMode2D.Impulse);
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position,rangeRadius + 1.5f);
     }
 
 }
