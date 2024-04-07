@@ -13,7 +13,6 @@ public class Movement : MonoBehaviour
 
     [SerializeField] public float _jumpForce;
     [SerializeField] private float _fallMultiplier;
-    [SerializeField] private float _lowJumpMultiplier = 2f;
 
 
     // Start is called before the first frame update
