@@ -67,7 +67,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentKunai.GetComponent<Kunai>().Detach(transform.position);
             }
+            if (Input.GetKey(KeyCode.E) && currentKunai.GetComponent<Kunai>().isAttached)
+            {
+                transform.position = Vector2.MoveTowards(transform.position,currentKunai.transform.position,0.03f);
+            }
         }
+        
         
 
         if (currentKunai == null)
@@ -114,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         float distance = Vector2.Distance(KunaiPos, playerPos);
-        if(distance > rangeRadius && scriptKunai.attachable == true) 
+        if(distance > rangeRadius && scriptKunai.attachable == true && scriptKunai.isAttached == false) 
         {
             Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
             KunaiRb.AddForce(direction * stopPower,ForceMode2D.Impulse);
@@ -122,16 +127,20 @@ public class PlayerMovement : MonoBehaviour
             scriptKunai.attachable = false;
             scriptKunai.fallen = true;
         }
-        if(distance > rangeRadius + 1.5f && scriptKunai.fallen == true)
+        if(distance > rangeRadius + 1.15f && scriptKunai.fallen == true && scriptKunai.isAttached == false)
         {
             Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
             KunaiRb.AddForce((playerPos - direction) * ropeStretch, ForceMode2D.Impulse);
+        }
+        if (distance > rangeRadius + 1.15f && scriptKunai.isAttached == true)
+        {
+            rb.AddForce((KunaiPos - playerPos) * 0.5f);
         }
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position,rangeRadius + 1.5f);
+        Gizmos.DrawWireSphere(transform.position,rangeRadius + 1.15f);
     }
 
 }
