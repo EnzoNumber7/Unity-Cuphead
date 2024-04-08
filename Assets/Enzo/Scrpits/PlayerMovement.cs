@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Direction
+{
+    None,
+    Left,
+    Right
+}
 public class PlayerMovementEnzo : MonoBehaviour
 {
     [SerializeField]private float speed = 5f;
@@ -18,6 +24,8 @@ public class PlayerMovementEnzo : MonoBehaviour
     [SerializeField] private GameObject firePoint;
     [SerializeField] private GameObject ropeObject;
 
+    private Direction blockedDirection;
+
     //kunai
     [SerializeField] private GameObject Kunai;
     private bool isUsed;
@@ -30,6 +38,7 @@ public class PlayerMovementEnzo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        blockedDirection = Direction.None;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -42,14 +51,13 @@ public class PlayerMovementEnzo : MonoBehaviour
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             firePointPos();
-            CheckRange();
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && blockedDirection != Direction.Left)
         {
             currentVelocity.x -= speed;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) && blockedDirection != Direction.Right)
         {
             currentVelocity.x += speed;
         }
@@ -79,7 +87,9 @@ public class PlayerMovementEnzo : MonoBehaviour
         {
             isUsed = false;
         }
+        
         rb.velocity = currentVelocity;
+        CheckRange();
     }
 
     private void Shoot()
@@ -119,25 +129,42 @@ public class PlayerMovementEnzo : MonoBehaviour
         if (currentKunai == null)
             return;
 
-        KunaiEnzo scriptKunai = currentKunai.GetComponent<KunaiEnzo>();
-        Vector2 playerPos = transform.position;
-        Vector2 KunaiPos = currentKunai.transform.position;
-        Vector2 direction = (playerPos - KunaiPos).normalized;
-
-
-        float distance = Vector2.Distance(KunaiPos, playerPos);
-        if(distance > rangeRadius && scriptKunai.attachable == true) 
+        if (currentKunai.GetComponent<KunaiEnzo>().isAttached == false)
         {
-            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
-            KunaiRb.AddForce(direction * stopPower,ForceMode2D.Impulse);
-            KunaiRb.bodyType = RigidbodyType2D.Dynamic;
-            scriptKunai.attachable = false;
-            scriptKunai.fallen = true;
+            return;
         }
-        if(distance > rangeRadius + 1.5f && scriptKunai.fallen == true)
+
+        Rope rope = ropeObject.GetComponent<Rope>();
+        Vector2 ropeOriginPos = rope.anchor.transform.position;
+        Vector2 playerPos = transform.position;
+        Vector2 kunaiPos = currentKunai.transform.position;
+        Vector2 direction = (playerPos - kunaiPos).normalized;
+
+        if (rope.GetDistanceFromAnchor() > rope.GetRopeMaxPossibleLenght())
         {
-            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
-            KunaiRb.AddForce((playerPos - direction) * ropeStretch, ForceMode2D.Impulse);
+            if (direction.x < 0.0f)
+            {
+                blockedDirection = Direction.Left;
+            }
+            else
+            {
+                 blockedDirection = Direction.Right;
+            }
+            if (direction.y > 0.0f)
+            {
+                rb.AddForce(new Vector2(0, -10));
+            }
+            if (direction.y < 0.0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, 0);
+                rb.gravityScale = 0.0f;
+            }
+            
+        }
+        else
+        {
+            blockedDirection = Direction.None;
+            rb.gravityScale = 1.0f;
         }
     }
     private void OnDrawGizmosSelected()
@@ -145,5 +172,4 @@ public class PlayerMovementEnzo : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position,rangeRadius + 1.5f);
     }
-
 }

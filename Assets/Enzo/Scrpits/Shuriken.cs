@@ -8,7 +8,7 @@ public class Shuriken : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody2D>().AddForce(transform.up * launchPower);
+        GetComponent<Rigidbody2D>().AddForce(transform.up * 5 *  launchPower);
     }
 
     // Update is called once per frame

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-    [SerializeField] private GameObject anchor;
+    [SerializeField] public GameObject anchor;
     [SerializeField] private GameObject ropeElement;
     [SerializeField] private HingeJoint2D top;
     [SerializeField] private GameObject firePoint;
@@ -19,7 +19,7 @@ public class Rope : MonoBehaviour
     void Update()
     {
         FollowPlayer(firePoint.transform.position);
-        if (GetDistanceFromAnchor() >= GetRopeMaxLenght() && GetRopeMaxLenght() > 0 && ropeSize <= maxRope)
+        if (GetDistanceFromAnchor() >= GetRopeMaxLenght() && GetRopeMaxLenght() > 0 && ropeSize < maxRope)
         {
             AddElement();
         }
@@ -45,7 +45,7 @@ public class Rope : MonoBehaviour
         kunai.transform.parent = transform;
         kunai.transform.position = transform.position;
         HingeJoint2D kunaiJoint = kunai.GetComponent<HingeJoint2D> ();
-        kunaiJoint.connectedBody = lastElement.GetComponent <Rigidbody2D> ();
+        kunaiJoint.connectedBody = lastElement.GetComponent <Rigidbody2D>();
     }
 
     public void FollowPlayer(Vector2 firePoint)
@@ -75,6 +75,15 @@ public class Rope : MonoBehaviour
         if (lastElement != null)
         {
             return ropeElement.GetComponent<SpriteRenderer>().bounds.size.y * ropeSize;
+        }
+        return 0;
+    }
+
+    public float GetRopeMaxPossibleLenght()
+    {
+        if (lastElement != null)
+        {
+            return ropeElement.GetComponent<SpriteRenderer>().bounds.size.y * maxRope;
         }
         return 0;
     }

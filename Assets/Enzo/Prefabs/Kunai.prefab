@@ -584,7 +584,7 @@ MonoBehaviour:
   isAttached: 0
   attachable: 0
   fallen: 0
-  launchPower: 600
+  launchPower: 800
   powerKnockBack: 2
   returnPower: 3
 --- !u!233 &928269903643163093
@@ -608,10 +608,10 @@ HingeJoint2D:
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 0
+  m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+    m_LowerAngle: -60
+    m_UpperAngle: 240
 --- !u!1 &9141144521040964564
 GameObject:
   m_ObjectHideFlags: 0
