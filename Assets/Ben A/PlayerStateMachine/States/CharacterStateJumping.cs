@@ -14,8 +14,6 @@ public class CharacterStateJumping : CharacterState
         if (!player._feet.GetComponent<FeetPlayer>().isGrounded)
             return;
 
-        //player._rb.velocity = new Vector2(player._rb.velocity.x, 0);
-        //player._rb.velocity += Vector2.up * player._jumpForce;
         player._rb.AddForce(new Vector2(player._rb.velocity.x, player._jumpForce));
     }
     public override void ExitState() { }
@@ -40,6 +38,15 @@ public class CharacterStateJumping : CharacterState
             characterStateMachine.ChangeState(player.stateMoving);
         }
 
+        if (player._leftSide.GetComponent<LeftSide>().isTriggering)
+        {
+            player.stateMachine.ChangeState(player.stateLeftSliding);
+        }
+
+        if (player._rightSide.GetComponent<LeftSide>().isTriggering)
+        {
+            player.stateMachine.ChangeState(player.stateRightSliding);
+        }
 
     }
 }

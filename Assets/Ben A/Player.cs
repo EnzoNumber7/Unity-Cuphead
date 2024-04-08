@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,6 +16,9 @@ public class Player : MonoBehaviour
     public CharacterStateMoving stateMoving;
     public CharacterStateJumping stateJumping;
     public CharacterStateFalling stateFalling;
+    public CharacterStateSliding stateLeftSliding;
+    public CharacterStateSliding stateRightSliding;
+
 
     #endregion
 
@@ -23,6 +27,9 @@ public class Player : MonoBehaviour
 
     public Rigidbody2D _rb;
     public GameObject _feet;
+
+    public GameObject _leftSide;
+    public GameObject _rightSide;
 
     //public bool _isGrounded;
 
@@ -36,6 +43,8 @@ public class Player : MonoBehaviour
         stateMoving = new CharacterStateMoving(stateMachine, this);
         stateJumping = new CharacterStateJumping(stateMachine, this, _jumpForce);
         stateFalling = new CharacterStateFalling(stateMachine, this, _fallMultiplier);
+        stateLeftSliding = new CharacterStateSlidingLeft(stateMachine, this, -1);
+        stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, 1);
 
         stateMachine.Initialize(stateIdle);
 
@@ -55,10 +64,7 @@ public class Player : MonoBehaviour
     {
         stateMachine.currentState.UpdateFrame();
         
-        //if (_rb.velocity.y > 0)
-        //{
-        //    _rb.velocity += Vector2.up * Physics.gravity.y * _fallMultiplier * Time.deltaTime;
-        //}
+        
 
     }
 
