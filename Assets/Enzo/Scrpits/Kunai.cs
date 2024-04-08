@@ -21,7 +21,7 @@ public class KunaiEnzo : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        rb.AddForce(transform.up * launchPower);
+        rb.AddForce(transform.up * 5 * launchPower);
         attachable = true;
         fallen = false;
     }

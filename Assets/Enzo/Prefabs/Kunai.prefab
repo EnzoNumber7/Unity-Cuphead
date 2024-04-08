@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 7625056672184430733}
   - component: {fileID: 8530159943495886730}
   - component: {fileID: 8532706543028761193}
+  - component: {fileID: 928269903643163093}
   m_Layer: 0
   m_Name: Kunai
   m_TagString: Untagged
@@ -586,6 +587,31 @@ MonoBehaviour:
   launchPower: 600
   powerKnockBack: 2
   returnPower: 3
+--- !u!233 &928269903643163093
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8820252996138565317}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: -0.00015327078, y: -0.2697085}
+  m_ConnectedAnchor: {x: -0.00015327078, y: -0.2697085}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359
 --- !u!1 &9141144521040964564
 GameObject:
   m_ObjectHideFlags: 0

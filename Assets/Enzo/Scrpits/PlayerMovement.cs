@@ -16,12 +16,14 @@ public class PlayerMovementEnzo : MonoBehaviour
     [SerializeField] private GameObject Grab;
     [SerializeField] private GameObject feet;
     [SerializeField] private GameObject firePoint;
+    [SerializeField] private GameObject ropeObject;
 
     //kunai
     [SerializeField] private GameObject Kunai;
     private bool isUsed;
 
     private Vector2 mousePos;
+    private Vector2 firePos = new Vector2(0, 0);
 
     [SerializeField] GameObject currentKunai;
 
@@ -34,11 +36,14 @@ public class PlayerMovementEnzo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 currentVelocity = new Vector2(0,rb.velocity.y);
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 currentVelocity = new Vector2(0, rb.velocity.y);
 
-        firePointPos();
-        CheckRange();
+        if (currentKunai == null)
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            firePointPos();
+            CheckRange();
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -83,10 +88,17 @@ public class PlayerMovementEnzo : MonoBehaviour
 
         firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
 
-        currentKunai = Instantiate(Kunai, firePoint.transform.position, firePoint.transform.rotation);
+        currentKunai = Instantiate(Kunai);
+
+        Rope rope = ropeObject.GetComponent<Rope>();
+        rope.transform.position = firePoint.transform.position;
+        rope.kunai = currentKunai;
+        rope.GenerateRope();
+        firePos = firePoint.transform.position;
+        currentKunai.transform.rotation = firePoint.transform.rotation;
 
         Grab.GetComponent<GrabEnzo>().GetCurrentKunai(currentKunai);
-        
+
     }
 
     private void firePointPos()
