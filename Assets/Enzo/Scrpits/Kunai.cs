@@ -41,7 +41,6 @@ public class KunaiEnzo : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("COLLISION");
         if (collision.collider.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyEnzo>().TakeDamage(1);
