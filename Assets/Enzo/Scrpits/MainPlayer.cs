@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MainPlayer : MonoBehaviour
 {
-    [SerializeField] int hp;
+    [SerializeField] private float hp;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +15,10 @@ public class MainPlayer : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
     }
 }
