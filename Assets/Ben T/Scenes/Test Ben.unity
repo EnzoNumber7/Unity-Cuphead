@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 647133069}
   - component: {fileID: 647133070}
   - component: {fileID: 647133071}
+  - component: {fileID: 647133072}
   m_Layer: 0
   m_Name: Feet
   m_TagString: Untagged
@@ -442,6 +443,19 @@ BoxCollider2D:
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &647133071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647133068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dccf373b925f1c34cb2da013e96e1266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
+--- !u!114 &647133072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -574,8 +588,8 @@ GameObject:
   - component: {fileID: 953165260}
   - component: {fileID: 953165259}
   - component: {fileID: 953165258}
-  - component: {fileID: 953165256}
   - component: {fileID: 953165261}
+  - component: {fileID: 953165262}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -583,29 +597,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &953165256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953165255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6342d46502d419b4cad2413540ac7b78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  JumpPower: 500
-  kunaiRadius: 1.3
-  rangeRadius: 6.5
-  stopPower: 11
-  ropeStretch: 0.05
-  Grab: {fileID: 2092067971}
-  feet: {fileID: 647133068}
-  firePoint: {fileID: 854326640}
-  Kunai: {fileID: 8820252996138565317, guid: c1a4ecb72564f084cb04e85efc2d30f9, type: 3}
-  currentKunai: {fileID: 0}
 --- !u!50 &953165258
 Rigidbody2D:
   serializedVersion: 4
@@ -738,6 +729,30 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &953165262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953165255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d128e67308908f94badadbf4ff256546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  JumpPower: 500
+  kunaiRadius: 1.3
+  rangeRadius: 6.5
+  stopPower: 200
+  ropeStretch: 0.05
+  Grab: {fileID: 2092067971}
+  feet: {fileID: 647133068}
+  firePoint: {fileID: 854326640}
+  ropeObject: {fileID: 810875834239506308, guid: fc070b14f1d6096499ece1724274cea6, type: 3}
+  Kunai: {fileID: 8820252996138565317, guid: 1edaf7de0ec947e4fb184129faa6d867, type: 3}
+  currentKunai: {fileID: 0}
 --- !u!1 &1090125895
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1144,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 750253311872566159, guid: 3b199611babe37d448102f33c1c5e0a0, type: 3}
+      propertyPath: shuriken
+      value: 
+      objectReference: {fileID: 4696256861869084055, guid: 98acefd1682f541499d7a6572efe169a, type: 3}
     - target: {fileID: 5460846475737267862, guid: 3b199611babe37d448102f33c1c5e0a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.9922179
@@ -1277,6 +1296,7 @@ GameObject:
   - component: {fileID: 2092067972}
   - component: {fileID: 2092067973}
   - component: {fileID: 2092067974}
+  - component: {fileID: 2092067975}
   m_Layer: 0
   m_Name: Grab
   m_TagString: Untagged
@@ -1311,7 +1331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8add094445fedfd4e9c78b9631d30526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentKunai: {fileID: 0}
 --- !u!70 &2092067974
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1347,63 +1366,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0000003065029, y: -0.0000010609034}
   m_Size: {x: 1.284347, y: 2.9775019}
   m_Direction: 0
---- !u!1001 &8828743246565720292
-PrefabInstance:
+--- !u!114 &2092067975
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.033134427
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3285543079764608945, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3835678613667165291, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
-      propertyPath: m_Name
-      value: Shuriken
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7635ea037af5abc42a6719076cf7a7db, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092067971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa4b69e0233d1c645a6785a15829b94a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentKunai: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1415,4 +1390,3 @@ SceneRoots:
   - {fileID: 784142209}
   - {fileID: 6482139}
   - {fileID: 1908926160}
-  - {fileID: 8828743246565720292}

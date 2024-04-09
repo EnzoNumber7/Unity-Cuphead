@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KunaiEnzo : MonoBehaviour
+public class Kunai : MonoBehaviour
 {
 
     private Rigidbody2D rb;
@@ -43,7 +43,7 @@ public class KunaiEnzo : MonoBehaviour
     {
         if (collision.collider.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<EnemyEnzo>().TakeDamage(1);
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(1);
         }
     }
     public void Attach(Collider2D collision)

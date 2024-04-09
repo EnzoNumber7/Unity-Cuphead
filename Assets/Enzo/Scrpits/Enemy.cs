@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class EnemyEnzo : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
 
     private Rigidbody2D rb;

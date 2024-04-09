@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabEnzo : MonoBehaviour
+public class Grab : MonoBehaviour
 {
 
     [SerializeField] GameObject currentKunai;
@@ -17,7 +17,7 @@ public class GrabEnzo : MonoBehaviour
     {
         if(collision.gameObject == currentKunai)
         {
-            currentKunai.GetComponent<KunaiEnzo>().DeleteKunai();
+            currentKunai.GetComponent<Kunai>().DeleteKunai();
         }
     }
 }

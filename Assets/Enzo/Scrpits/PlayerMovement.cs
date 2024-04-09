@@ -68,17 +68,17 @@ public class PlayerMovementEnzo : MonoBehaviour
         }
         if (Input.GetMouseButton(1) && isUsed == true)
         {
-            currentKunai.GetComponent<KunaiEnzo>().ReturnToPlayer(transform.position);
+            currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && feet.GetComponent<Player_FeetEnzo>().isGrounded) 
+        if (Input.GetKeyDown(KeyCode.Space) && feet.GetComponent<Player_Feet>().isGrounded) 
         {
             rb.AddForce(new Vector2(0,JumpPower));
         }
         if(currentKunai != null)
         {
-            if (Input.GetKeyDown(KeyCode.Q) && currentKunai.GetComponent<KunaiEnzo>().isAttached)
+            if (Input.GetKeyDown(KeyCode.Q) && currentKunai.GetComponent<Kunai>().isAttached)
             {
-                currentKunai.GetComponent<KunaiEnzo>().Detach(transform.position);
+                currentKunai.GetComponent<Kunai>().Detach(transform.position);
             }
         }
         
@@ -107,7 +107,7 @@ public class PlayerMovementEnzo : MonoBehaviour
         firePos = firePoint.transform.position;
         currentKunai.transform.rotation = firePoint.transform.rotation;
 
-        Grab.GetComponent<GrabEnzo>().GetCurrentKunai(currentKunai);
+        Grab.GetComponent<Grab>().GetCurrentKunai(currentKunai);
 
     }
 
@@ -129,7 +129,7 @@ public class PlayerMovementEnzo : MonoBehaviour
         if (currentKunai == null)
             return;
 
-        if (currentKunai.GetComponent<KunaiEnzo>().isAttached == false)
+        if (currentKunai.GetComponent<Kunai>().isAttached == false)
         {
             return;
         }

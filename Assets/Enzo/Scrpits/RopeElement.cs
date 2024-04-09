@@ -9,7 +9,7 @@ public class RopeElement : MonoBehaviour
     public GameObject bottom;
     void Start()
     {
-        if (gameObject.GetComponent<KunaiEnzo>() == null)
+        if (gameObject.GetComponent<Kunai>() == null)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
