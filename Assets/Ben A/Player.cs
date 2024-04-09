@@ -24,6 +24,16 @@ public class Player : MonoBehaviour
     #endregion
 
 
+    #region AnimatorVariables
+
+    const string IS_GROUNDED_PARAM = "IsGrounded";
+    const string VELX_PARAM = "Xvelocity";
+    const string VELY_PARAM = "Yvelocity";
+    const string SPEEDY_PARAM = "Yspeed";
+    const string SPEEDX_PARAM = "Xspeed";
+
+    #endregion
+
     [Range(20, 50)] public float _speed;
 
     public Rigidbody2D _rb;
@@ -32,10 +42,11 @@ public class Player : MonoBehaviour
     public GameObject _leftSide;
     public GameObject _rightSide;
 
-    //public bool _isGrounded;
+    public Animator animator;
 
     [SerializeField] public float _jumpForce;
     [SerializeField] private float _fallMultiplier;
+
 
     void Awake()
     {
@@ -51,6 +62,7 @@ public class Player : MonoBehaviour
         stateMachine.Initialize(stateIdle);
 
         _rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         //_isGrounded = _feet.GetComponent<FeetPlayer>().isGrounded;
 
     }
@@ -65,9 +77,21 @@ public class Player : MonoBehaviour
     void Update()
     {
         stateMachine.currentState.UpdateFrame();
-        
-        
 
+        if(Input.GetAxis("Horizontal") > 0)
+        {
+            transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y,0);
+        }
+        else if(Input.GetAxis("Horizontal") < 0)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, 0);
+        }
+
+        animator.SetBool(IS_GROUNDED_PARAM, _feet.GetComponent<FeetPlayer>().isGrounded);
+        animator.SetFloat(VELX_PARAM, _rb.velocity.x);
+        animator.SetFloat(VELY_PARAM, _rb.velocity.y);
+        animator.SetFloat(SPEEDX_PARAM, Math.Abs(_rb.velocity.x));
+        animator.SetFloat(SPEEDY_PARAM, Math.Abs(_rb.velocity.y));
     }
 
 }
