@@ -6,14 +6,13 @@ public class CharacterStateSlidingLeft : CharacterStateSliding
 {
     public CharacterStateSlidingLeft(CharacterStateMachine stateMachine, Player p, int direction) : base(stateMachine, p, direction)
     {
-        this.direction = direction;
     }
 
     public override void UpdateFrame()
     {
         base.UpdateFrame();
 
-        player._rb.velocity -= new Vector2(0, player._rb.velocity.y);
+        player._rb.velocity += Vector2.up * player._rb.velocity.y / 2 ;
 
         if (Input.GetAxis("Horizontal") < 0)
         {
@@ -34,11 +33,9 @@ public class CharacterStateSlidingLeft : CharacterStateSliding
             characterStateMachine.ChangeState(player.stateFalling);
         }
 
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            player._rb.AddForce(new Vector2(player._jumpForce * direction, 0));
-            characterStateMachine.ChangeState(player.stateJumping);
+            characterStateMachine.ChangeState(player.stateWallJumping);
             print("Jump");
         }
 

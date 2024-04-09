@@ -12,12 +12,13 @@ public class Player : MonoBehaviour
 
     public CharacterStateMachine stateMachine;
 
-    public CharacterStateIdle stateIdle;
-    public CharacterStateMoving stateMoving;
-    public CharacterStateJumping stateJumping;
-    public CharacterStateFalling stateFalling;
-    public CharacterStateSliding stateLeftSliding;
-    public CharacterStateSliding stateRightSliding;
+    public CharacterStateIdle           stateIdle;
+    public CharacterStateMoving         stateMoving;
+    public CharacterStateJumping        stateJumping;
+    public CharacterStateWallJumping    stateWallJumping;
+    public CharacterStateFalling        stateFalling;
+    public CharacterStateSliding        stateLeftSliding;
+    public CharacterStateSliding        stateRightSliding;
 
 
     #endregion
@@ -42,9 +43,10 @@ public class Player : MonoBehaviour
         stateIdle = new CharacterStateIdle(stateMachine, this);
         stateMoving = new CharacterStateMoving(stateMachine, this);
         stateJumping = new CharacterStateJumping(stateMachine, this, _jumpForce);
+        stateWallJumping = new CharacterStateWallJumping(stateMachine, this, _jumpForce);
         stateFalling = new CharacterStateFalling(stateMachine, this, _fallMultiplier);
-        stateLeftSliding = new CharacterStateSlidingLeft(stateMachine, this, -1);
-        stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, 1);
+        stateLeftSliding = new CharacterStateSlidingLeft(stateMachine, this, 1);
+        stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, -1);
 
         stateMachine.Initialize(stateIdle);
 

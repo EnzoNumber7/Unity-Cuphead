@@ -2,19 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStateJumping : CharacterState
+public class CharacterStateWallJumping : CharacterState
 {
 
     public float jumpForce;
 
-    public CharacterStateJumping(CharacterStateMachine stateMachine, Player p, float JumpForce) : base(stateMachine, p) { jumpForce = JumpForce; }
+    public CharacterStateWallJumping(CharacterStateMachine stateMachine, Player p, float JumpForce) : base(stateMachine, p) { jumpForce = JumpForce; }
 
-    public override void EnterState() {
-
-        if (!player._feet.GetComponent<FeetPlayer>().isGrounded)
-            return;
-
-        player._rb.AddForce(new Vector2(player._rb.velocity.x, player._jumpForce));
+    public override void EnterState()
+    {
+        player._rb.AddForce(new Vector2(player._jumpForce, player._jumpForce));
     }
     public override void ExitState() { }
 
@@ -28,14 +25,9 @@ public class CharacterStateJumping : CharacterState
 
     public override void OnChangeState()
     {
-        if(player._rb.velocity.y < 0 || Input.GetKeyUp(KeyCode.Space))
+        if (player._rb.velocity.y < 0)
         {
             characterStateMachine.ChangeState(player.stateFalling);
-        }
-
-        if (Input.GetAxis("Horizontal") != 0)
-        {
-            characterStateMachine.ChangeState(player.stateMoving);
         }
 
         if (player._leftSide.GetComponent<LeftSide>().isTriggering)

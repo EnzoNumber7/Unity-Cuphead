@@ -6,14 +6,13 @@ public class CharacterStateSlidingRight : CharacterStateSliding
 {
     public CharacterStateSlidingRight(CharacterStateMachine stateMachine, Player p, int direction) : base(stateMachine, p, direction)
     {
-        this.direction = direction;
     }
 
     public override void UpdateFrame()
     {
         base.UpdateFrame();
 
-        player._rb.velocity -= new Vector2(0, player._rb.velocity.y / 2);
+        player._rb.velocity -= new Vector2(0, player._rb.velocity.y);
 
         
     }
@@ -33,8 +32,8 @@ public class CharacterStateSlidingRight : CharacterStateSliding
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            player._rb.AddForce(new Vector2(player._jumpForce / 100 * direction, 0));
-            characterStateMachine.ChangeState(player.stateJumping);
+            characterStateMachine.ChangeState(player.stateWallJumping);
+            print("Jump");
         }
 
     }
