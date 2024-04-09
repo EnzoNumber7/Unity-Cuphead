@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class RopeElement : MonoBehaviour
 {
-    public GameObject _aboveObject;
-    public GameObject _belowObject;
+    private GameObject aboveObject;
+    public GameObject belowObject;
+    public GameObject bottom;
     void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        if (gameObject.GetComponent<KunaiEnzo>() == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            BoxCollider2D collider = GetComponent<BoxCollider2D>();
+            collider.enabled = true;
+        }
         ResetAnchor();
     }
 
-    public void ResetAnchor()
+        public void ResetAnchor()
     {
-        _aboveObject = GetComponent<HingeJoint2D>().connectedBody.gameObject;
-        RopeElement aboveElement = _aboveObject.GetComponent<RopeElement>();
+        aboveObject = GetComponent<HingeJoint2D>().connectedBody.gameObject;
+        RopeElement aboveElement = aboveObject.GetComponent<RopeElement>();
 
         if (aboveElement != null)
         {
-            aboveElement._belowObject = gameObject;
-            float coordinate = _aboveObject.GetComponent<SpriteRenderer>().bounds.size.y;
+            aboveElement.belowObject = gameObject;
+            float coordinate = aboveObject.GetComponent<SpriteRenderer>().bounds.size.y;
             GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(0, -coordinate);
         }
         else

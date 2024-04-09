@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-    public GameObject _anchor;
-    public int _ropeSize;
-    public GameObject _ropeElement;
-    GameObject _prevElement;
-    public GameObject _player;
-    HingeJoint2D _top;
+    [SerializeField] public GameObject anchor;
+    [SerializeField] private GameObject ropeElement;
+    [SerializeField] private HingeJoint2D top;
+    [SerializeField] private GameObject firePoint;
+    [SerializeField] private int maxRope;
+    [SerializeField] private int ropeSize;
+    public GameObject kunai;
+    GameObject lastElement;
     void Start()
     {
-        GenerateRope();
     }
 
     void Update()
     {
-        FollowPlayer();
-        if (Input.GetKeyDown(KeyCode.C) == true)
+        FollowPlayer(firePoint.transform.position);
+        if (GetDistanceFromAnchor() >= GetRopeMaxLenght() && GetRopeMaxLenght() > 0 && ropeSize < maxRope)
         {
             AddElement();
         }
@@ -26,44 +27,74 @@ public class Rope : MonoBehaviour
 
     public void GenerateRope()
     {
-        _prevElement = _anchor;
-        for (int i = 0; i < _ropeSize; i++)
+        lastElement = anchor;
+        for (int i = 0; i < ropeSize; i++)
         {
-            GameObject newElement = Instantiate(_ropeElement);
+            GameObject newElement = Instantiate(ropeElement);
             newElement.transform.parent = transform;
             newElement.transform.position = transform.position;
             HingeJoint2D hj = newElement.GetComponent<HingeJoint2D>();
-            hj.connectedBody = _prevElement.GetComponent<Rigidbody2D>();
-            _prevElement = newElement;
+            hj.connectedBody = lastElement.GetComponent<Rigidbody2D>();
+            lastElement = newElement;
 
             if (i == 0)
             {
-                _top = hj;
+                top = hj;
             }
         }
+        kunai.transform.parent = transform;
+        kunai.transform.position = transform.position;
+        HingeJoint2D kunaiJoint = kunai.GetComponent<HingeJoint2D> ();
+        kunaiJoint.connectedBody = lastElement.GetComponent <Rigidbody2D>();
     }
 
-    public void FollowPlayer()
+    public void FollowPlayer(Vector2 firePoint)
     {
-        Vector2 playerPos = _player.transform.position;
-        _anchor.transform.position = new Vector2(playerPos.x + 1,playerPos.y);
-        _anchor.GetComponent<HingeJoint2D>().connectedAnchor = new Vector2(playerPos.x + 1, playerPos.y);
-
+        anchor.transform.position = firePoint;
+        anchor.GetComponent<HingeJoint2D>().connectedAnchor = firePoint;
     }
 
     public void AddElement()
     {
-        GameObject newElement = Instantiate(_ropeElement);
+        GameObject newElement = Instantiate(ropeElement);
         newElement.transform.parent = transform;
         newElement.transform.position = transform.position;
         HingeJoint2D hj = newElement.GetComponent<HingeJoint2D>();
-        hj.connectedBody = _anchor.GetComponent<Rigidbody2D>();
-        newElement.GetComponent<RopeElement>()._belowObject = _top.gameObject;
+        hj.connectedBody = anchor.GetComponent<Rigidbody2D>();
+        newElement.GetComponent<RopeElement>().belowObject = top.gameObject;
 
-        _top.connectedBody = newElement.GetComponent<Rigidbody2D>();
-        _top.GetComponent<RopeElement>().ResetAnchor();
-        _top = hj;
+        top.connectedBody = newElement.GetComponent<Rigidbody2D>();
+        top.GetComponent<RopeElement>().ResetAnchor();
+        top = hj;
         
-        _ropeSize++;
+        ropeSize++;
+    }
+
+    public float GetRopeMaxLenght()
+    {
+        if (lastElement != null)
+        {
+            return ropeElement.GetComponent<SpriteRenderer>().bounds.size.y * ropeSize;
+        }
+        return 0;
+    }
+
+    public float GetRopeMaxPossibleLenght()
+    {
+        if (lastElement != null)
+        {
+            return ropeElement.GetComponent<SpriteRenderer>().bounds.size.y * maxRope;
+        }
+        return 0;
+    }
+
+    public float GetDistanceFromAnchor()
+    {
+        if (lastElement != null)
+        {
+            //Vector2 ropeEndPos = new Vector2(lastElement.transform.position.x, lastElement.GetComponent<RopeElement>().bottom.transform.position.y);
+            return (float)System.Math.Round(Vector2.Distance(lastElement.GetComponent<RopeElement>().bottom.transform.position, anchor.transform.position),3);
+        }
+        return 0;
     }
 }
