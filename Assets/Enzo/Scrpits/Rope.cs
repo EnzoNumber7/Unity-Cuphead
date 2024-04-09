@@ -6,7 +6,8 @@ public class Rope : MonoBehaviour
 {
     [SerializeField] public GameObject anchor;
     [SerializeField] private GameObject ropeElement;
-    [SerializeField] private HingeJoint2D top;
+    [SerializeField] private HingeJoint2D topJoint;
+    [SerializeField] public GameObject topObject;
     [SerializeField] private GameObject firePoint;
     [SerializeField] private int maxRope;
     [SerializeField] private int ropeSize;
@@ -39,7 +40,8 @@ public class Rope : MonoBehaviour
 
             if (i == 0)
             {
-                top = hj;
+                topJoint = hj;
+                topObject = newElement;
             }
         }
         kunai.transform.parent = transform;
@@ -61,13 +63,25 @@ public class Rope : MonoBehaviour
         newElement.transform.position = transform.position;
         HingeJoint2D hj = newElement.GetComponent<HingeJoint2D>();
         hj.connectedBody = anchor.GetComponent<Rigidbody2D>();
-        newElement.GetComponent<RopeElement>().belowObject = top.gameObject;
+        newElement.GetComponent<RopeElement>().belowObject = topJoint.gameObject;
 
-        top.connectedBody = newElement.GetComponent<Rigidbody2D>();
-        top.GetComponent<RopeElement>().ResetAnchor();
-        top = hj;
+        topJoint.connectedBody = newElement.GetComponent<Rigidbody2D>();
+        topJoint.GetComponent<RopeElement>().ResetAnchor();
+        topJoint = hj;
+        topObject = newElement;
         
         ropeSize++;
+    }
+
+    public void RemoveElement()
+    {
+        HingeJoint2D newTop = topJoint.gameObject.GetComponent<RopeElement>().belowObject.GetComponent<HingeJoint2D>();
+        newTop.connectedBody = anchor.GetComponent<Rigidbody2D>();
+        newTop.gameObject.transform.position = anchor.transform.position;
+        newTop.GetComponent<RopeElement>().ResetAnchor();
+        Destroy(topObject);
+        topObject = newTop.gameObject;
+        topJoint = newTop;
     }
 
     public float GetRopeMaxLenght()

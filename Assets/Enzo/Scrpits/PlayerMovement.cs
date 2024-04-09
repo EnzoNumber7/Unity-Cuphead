@@ -66,9 +66,14 @@ public class PlayerMovementEnzo : MonoBehaviour
             Shoot();
             isUsed = true;
         }
-        if (Input.GetMouseButton(1) && isUsed == true)
+        if (Input.GetMouseButtonDown(1) && isUsed == true)
         {
-            currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
+            if (Vector2.Distance(ropeObject.GetComponent<Rope>().topObject.transform.position, ropeObject.GetComponent<Rope>().anchor.transform.position) < 0.01)
+            {
+                ropeObject.GetComponent<Rope>().RemoveElement();
+            }
+            
+            //currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
         }
         if (Input.GetKeyDown(KeyCode.Space) && feet.GetComponent<Player_Feet>().isGrounded) 
         {
