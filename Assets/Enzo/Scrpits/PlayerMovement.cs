@@ -89,7 +89,7 @@ public class PlayerMovementEnzo : MonoBehaviour
         }
         
         rb.velocity = currentVelocity;
-        CheckRange();
+        //CheckRange();
     }
 
     private void Shoot()
