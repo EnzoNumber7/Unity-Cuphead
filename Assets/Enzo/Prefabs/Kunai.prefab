@@ -550,13 +550,13 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8820252996138565317}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 5.93
+  m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -581,10 +581,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c220ddcf9d3ff46aba570afe869244, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destiny: {x: 0, y: 0}
+  distance: 2
+  nodePrefab: {fileID: 8608663367315369282, guid: 502765c7416f5cd4083a8b4de0b70b85, type: 3}
+  player: {fileID: 0}
+  lastNode: {fileID: 0}
+  speed: 0
   isAttached: 0
   attachable: 0
   fallen: 0
-  launchPower: 800
+  launchPower: 300
   powerKnockBack: 2
   returnPower: 3
 --- !u!233 &928269903643163093
@@ -601,14 +607,14 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: -0.00015327078, y: -0.2697085}
-  m_ConnectedAnchor: {x: -0.00015327078, y: -0.2697085}
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
     m_MaximumMotorForce: 10000
-  m_UseLimits: 1
+  m_UseLimits: 0
   m_AngleLimits:
     m_LowerAngle: -60
     m_UpperAngle: 240

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Kunai : MonoBehaviour
@@ -7,6 +8,19 @@ public class Kunai : MonoBehaviour
 
     private Rigidbody2D rb;
     private Collider2D col;
+
+
+
+    public Vector2 destiny;
+    public float distance = 0.02f;
+    public GameObject nodePrefab;
+    public GameObject player;
+    public GameObject lastNode;
+    public float speed;
+    private bool done = false;
+
+
+
 
     public bool isAttached;
     [SerializeField]public bool attachable;
@@ -17,17 +31,34 @@ public class Kunai : MonoBehaviour
     [SerializeField] float returnPower;
 
 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        rb.AddForce(transform.up * 5 * launchPower);
+        player = GameObject.FindGameObjectWithTag("Player");
+        lastNode = transform.gameObject;
+        rb.AddForce(transform.up * launchPower * 5);
         attachable = true;
         fallen = false;
     }
 
     private void Update()
     {
+        if (isAttached == false)
+        {
+            if (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)
+            {
+                CreateNode();
+            }
+
+        }
+        else if (done == false)
+        {
+            done = true;
+
+            lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
+        }
     }
 
     private void FixedUpdate()
@@ -65,6 +96,21 @@ public class Kunai : MonoBehaviour
         rb.AddForce((playerPos - transform.position).normalized * powerKnockBack,ForceMode2D.Impulse);
         attachable = false;
 
+    }
+
+    private void CreateNode()
+    {
+        Vector2 pos2Create = player.transform.position - lastNode.transform.position;
+        pos2Create.Normalize();
+        pos2Create *= distance;
+        pos2Create += (Vector2)lastNode.transform.position;
+
+        GameObject go = (GameObject)Instantiate(nodePrefab, pos2Create, Quaternion.identity);
+
+        go.transform.SetParent(transform);
+        lastNode.GetComponent<HingeJoint2D>().connectedBody = go.GetComponent<Rigidbody2D>();
+
+        lastNode = go;
     }
 
     public void ReturnToPlayer(Vector3 playerPos)
