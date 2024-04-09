@@ -10,21 +10,18 @@ public enum Direction
 }
 public class PlayerMovementEnzo : MonoBehaviour
 {
-    [SerializeField]private float speed = 5f;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private float JumpPower;
     private Rigidbody2D rb;
 
     [SerializeField] private float kunaiRadius;
     [SerializeField] private float rangeRadius;
     [SerializeField] private float stopPower;
-    [SerializeField] private float ropeStretch;
 
     [SerializeField] private GameObject Grab;
     [SerializeField] private GameObject feet;
     [SerializeField] private GameObject firePoint;
-    [SerializeField] private GameObject ropeObject;
 
-    private Direction blockedDirection;
 
     //kunai
     [SerializeField] private GameObject Kunai;
@@ -38,7 +35,6 @@ public class PlayerMovementEnzo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        blockedDirection = Direction.None;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -105,31 +101,25 @@ public class PlayerMovementEnzo : MonoBehaviour
         float angle = Mathf.Atan2(mousePos.y - firePoint.transform.position.y, mousePos.x - firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
 
         firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
-
-        currentKunai = Instantiate(Kunai);
-
-        Rope rope = ropeObject.GetComponent<Rope>();
-        rope.transform.position = firePoint.transform.position;
-        rope.kunai = currentKunai;
-        rope.GenerateRope();
-        firePos = firePoint.transform.position;
-        currentKunai.transform.rotation = firePoint.transform.rotation;
-
+        currentKunai = Instantiate(Kunai, firePoint.transform.position, firePoint.transform.rotation);
         Grab.GetComponent<Grab>().GetCurrentKunai(currentKunai);
+        currentKunai.GetComponent<Kunai>().destiny = mousePos;
 
     }
 
     private void firePointPos()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePos.y - firePoint.transform.position.y, mousePos.x - firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
 
+        firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
         Vector2 firePointPos = firePoint.transform.position;
         Vector2 playerPos = transform.position;
         Vector2 direction = (mousePos - firePointPos).normalized;
 
         firePoint.transform.position = playerPos + direction * kunaiRadius;
-        
-        
+
+
     }
 
     private void CheckRange()
@@ -137,47 +127,37 @@ public class PlayerMovementEnzo : MonoBehaviour
         if (currentKunai == null)
             return;
 
-        if (currentKunai.GetComponent<Kunai>().isAttached == false)
-        {
-            return;
-        }
-
-        Rope rope = ropeObject.GetComponent<Rope>();
-        Vector2 ropeOriginPos = rope.anchor.transform.position;
+        Kunai scriptKunai = currentKunai.GetComponent<Kunai>();
         Vector2 playerPos = transform.position;
-        Vector2 kunaiPos = currentKunai.transform.position;
-        Vector2 direction = (playerPos - kunaiPos).normalized;
+        Vector2 KunaiPos = currentKunai.transform.position;
+        Vector2 direction = (playerPos - KunaiPos).normalized;
 
-        if (rope.GetDistanceFromAnchor() > rope.GetRopeMaxPossibleLenght())
+
+        float distance = Vector2.Distance(KunaiPos, playerPos);
+        if (distance > rangeRadius && scriptKunai.attachable == true && scriptKunai.isAttached == false)
         {
-            if (direction.x < 0.0f)
-            {
-                blockedDirection = Direction.Left;
-            }
-            else
-            {
-                 blockedDirection = Direction.Right;
-            }
-            if (direction.y > 0.0f)
-            {
-                rb.AddForce(new Vector2(0, -10));
-            }
-            if (direction.y < 0.0f)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, 0);
-                rb.gravityScale = 0.0f;
-            }
-            
+            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
+            KunaiRb.AddForce(direction * stopPower, ForceMode2D.Impulse);
+            KunaiRb.bodyType = RigidbodyType2D.Dynamic;
+            scriptKunai.attachable = false;
+            scriptKunai.fallen = true;
         }
-        else
+        if (distance > rangeRadius + 1.15f && scriptKunai.fallen == true && scriptKunai.isAttached == false)
         {
-            blockedDirection = Direction.None;
-            rb.gravityScale = 1.0f;
+            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
+            KunaiRb.AddForce((playerPos - direction) * 0.5f, ForceMode2D.Impulse);
+        }
+        if (distance > rangeRadius + 1.15f && scriptKunai.isAttached == true)
+        {
+            rb.AddForce((KunaiPos - playerPos) * 0.5f);
         }
     }
+
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position,rangeRadius + 1.5f);
+        Gizmos.DrawWireSphere(transform.position, rangeRadius + 1.5f);
+        Gizmos.DrawWireSphere(transform.position, rangeRadius + 1.15f);
     }
 }
