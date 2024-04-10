@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Direction
@@ -63,6 +64,7 @@ public class PlayerMovementEnzo : MonoBehaviour
             {
                 Shoot();
                 isUsed = true;
+                firePoint.GetComponent<SpriteRenderer>().enabled = false;
             }
             if (Input.GetMouseButtonDown(1) && isUsed == true)
             {
