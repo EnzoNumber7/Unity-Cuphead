@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -13,8 +14,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private GameObject shuriken;
     private GameObject currentShuriken;
 
+    public Player player;
+
     void Start()
     {
+
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(ShootTime());
     }
@@ -22,7 +26,15 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(hp <= 0)
+        //if(gameObject.transform.position.x - player.transform.position.x != 0)//Change la direction de l'ennemi en fonction de la pos du joueur
+        //{
+        //    float direction = (gameObject.transform.position.x - player.transform.position.x / System.Math.Abs(gameObject.transform.position.x - player.transform.position.x));
+        //    print(direction);
+        //    transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * direction, transform.localScale.y, 0) ;
+
+        //}
+
+        if (hp <= 0)
             Destroy(gameObject);
     }
 

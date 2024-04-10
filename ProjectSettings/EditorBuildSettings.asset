@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Enzo/Scenes/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: 3ba5d297b21ac934091e7d0d26288e6b
   - enabled: 1
     path: Assets/Enzo/Scenes/EnzoScene.unity
