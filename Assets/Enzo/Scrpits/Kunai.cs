@@ -18,8 +18,12 @@ public class Kunai : MonoBehaviour
     public GameObject lastNode;
     public float speed;
     private bool done = false;
+    public LineRenderer lr;
+    int vertexCount = 2;
 
+    public List<GameObject> Nodes = new List<GameObject>();
 
+    public Vector2 playerPosShoot;
 
 
     public bool isAttached;
@@ -38,7 +42,8 @@ public class Kunai : MonoBehaviour
         col = GetComponent<Collider2D>();
         player = GameObject.FindGameObjectWithTag("Player");
         lastNode = transform.gameObject;
-        rb.AddForce(transform.up * launchPower * 5);
+        Nodes.Add(transform.gameObject);
+        rb.AddForce(transform.up * launchPower * 3);
         attachable = true;
         fallen = false;
     }
@@ -47,18 +52,22 @@ public class Kunai : MonoBehaviour
     {
         if (isAttached == false)
         {
-            if (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)
+            if (Vector2.Distance(playerPosShoot, lastNode.transform.position) > 5f)
             {
                 CreateNode();
             }
 
         }
-        else if (done == false)
+        else if (done == false && isAttached == true)
         {
             done = true;
-
+            while (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)
+            {
+                CreateNode();
+            }
             lastNode.GetComponent<HingeJoint2D>().connectedBody = player.GetComponent<Rigidbody2D>();
         }
+        RenderLine();
     }
 
     private void FixedUpdate()
@@ -68,6 +77,23 @@ public class Kunai : MonoBehaviour
         if (fallen)
             return;
         transform.rotation = Quaternion.LookRotation(Vector3.forward,rb.velocity);
+    }
+
+    void RenderLine()
+    {
+
+        lr.positionCount =vertexCount;
+
+        int i;
+        for (i = 0; i < Nodes.Count; i++)
+        {
+
+            lr.SetPosition(i, Nodes[i].transform.position);
+
+        }
+
+        lr.SetPosition(i, player.transform.position);
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -88,6 +114,7 @@ public class Kunai : MonoBehaviour
 
         transform.SetParent(collision.transform, true);
         rb.bodyType = RigidbodyType2D.Static;
+        GetComponent<HingeJoint2D>().enabled = true;
         
     }
 
@@ -96,11 +123,13 @@ public class Kunai : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.AddForce((playerPos - transform.position).normalized * powerKnockBack,ForceMode2D.Impulse);
         attachable = false;
+        GetComponent<HingeJoint2D>().enabled = false;
 
     }
 
     private void CreateNode()
     {
+
         Vector2 pos2Create = player.transform.position - lastNode.transform.position;
         pos2Create.Normalize();
         pos2Create *= distance;
@@ -108,15 +137,22 @@ public class Kunai : MonoBehaviour
 
         GameObject go = (GameObject)Instantiate(nodePrefab, pos2Create, Quaternion.identity);
 
+
         go.transform.SetParent(transform);
+
         lastNode.GetComponent<HingeJoint2D>().connectedBody = go.GetComponent<Rigidbody2D>();
 
         lastNode = go;
+
+        Nodes.Add(lastNode);
+
+        vertexCount++;
+
     }
 
     public void ReturnToPlayer(Vector3 playerPos)
     {
-        Vector3 testpos = new Vector3 (playerPos.x,playerPos.y + 2,1) ;
+        Vector3 testpos = new Vector3 (playerPos.x,playerPos.y + 1,1) ;
         rb.AddForce((testpos - transform.position).normalized * returnPower);
     }
     
