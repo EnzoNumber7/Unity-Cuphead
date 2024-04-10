@@ -35,7 +35,7 @@ public class CharacterStateAttaking : CharacterState
 
         if (player._cac.GetComponent<Cac>().isEnemyForward)
         {
-            ((Enemy)player._cac.GetComponent<Cac>().enemy.GetComponent<Enemy>()).TakeDamage(1);
+            ((Enemy)player._cac.GetComponent<Cac>().enemy.GetComponent<Enemy>()).TakeDamage(1,player.gameObject);
         }
     }
 
