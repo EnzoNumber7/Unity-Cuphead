@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterStateSlidingLeft : CharacterStateSliding
 {
-    public CharacterStateSlidingLeft(CharacterStateMachine stateMachine, Player p, int direction) : base(stateMachine, p, direction)
+    public CharacterStateSlidingLeft(int direction) : base(direction)
     {
     }
 

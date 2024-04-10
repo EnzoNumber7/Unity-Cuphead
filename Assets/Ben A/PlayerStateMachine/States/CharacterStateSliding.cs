@@ -4,7 +4,7 @@ public class CharacterStateSliding : CharacterState
 {
     public int direction;
 
-    public CharacterStateSliding(CharacterStateMachine stateMachine, Player p, int direction) : base(stateMachine, p)
+    public CharacterStateSliding(int direction) : base()
     {
         this.direction = direction;
     }

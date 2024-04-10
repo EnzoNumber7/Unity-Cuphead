@@ -49,4 +49,11 @@ public class Enemy : MonoBehaviour
         EnemyShoot();
         StartCoroutine(ShootTime());
     }
+
+    public IEnumerator Invicibility()
+    {
+        yield return new WaitForSeconds(1);
+        
+    }
+
 }

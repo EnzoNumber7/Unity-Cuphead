@@ -8,10 +8,10 @@ public class CharacterState : MonoBehaviour
     protected CharacterStateMachine characterStateMachine;
     protected Player player;
 
-    protected CharacterState(CharacterStateMachine StateMachine, Player p)
+    public void Awake()
     {
-        characterStateMachine = StateMachine;
-        player = p;
+        characterStateMachine = gameObject.transform.parent.GetComponent<Player>().stateMachine;
+        player = gameObject.transform.parent.GetComponent<Player>();
     }
 
     public virtual void EnterState() { }

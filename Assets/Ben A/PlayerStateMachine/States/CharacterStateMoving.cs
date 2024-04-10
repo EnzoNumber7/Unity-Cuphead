@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterStateMoving : CharacterState
 {
 
-    public CharacterStateMoving(CharacterStateMachine stateMachine, Player p) : base(stateMachine, p)
+    public CharacterStateMoving() : base()
     {
 
     }

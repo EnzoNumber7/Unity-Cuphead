@@ -7,7 +7,7 @@ public class CharacterStateFalling : CharacterState
 
     public float fallMultiplier;
 
-    public CharacterStateFalling(CharacterStateMachine stateMachine, Player p, float fallMulti) : base(stateMachine, p) { fallMultiplier = fallMulti; }
+    public CharacterStateFalling(float fallMulti) : base() { fallMultiplier = fallMulti; }
     
     public override void EnterState() { }
 

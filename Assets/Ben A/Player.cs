@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     public CharacterStateFalling        stateFalling;
     public CharacterStateSliding        stateLeftSliding;
     public CharacterStateSliding        stateRightSliding;
-
+    public CharacterStateAttaking       stateAttakcing;
 
     #endregion
 
@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     const string VELY_PARAM = "Yvelocity";
     const string SPEEDY_PARAM = "Yspeed";
     const string SPEEDX_PARAM = "Xspeed";
+    const string ISATTACKING_PARAM = "IsAttacking";
 
     #endregion
 
@@ -41,25 +42,28 @@ public class Player : MonoBehaviour
 
     public GameObject _leftSide;
     public GameObject _rightSide;
+    public GameObject _cac;
 
     public Animator animator;
 
     [SerializeField] public float _jumpForce;
     [SerializeField] private float _fallMultiplier;
 
+    public bool isAttaking;
 
     void Awake()
     {
-        stateMachine = new CharacterStateMachine();
-        stateIdle = new CharacterStateIdle(stateMachine, this);
-        stateMoving = new CharacterStateMoving(stateMachine, this);
-        stateJumping = new CharacterStateJumping(stateMachine, this, _jumpForce);
-        stateWallJumping = new CharacterStateWallJumping(stateMachine, this, _jumpForce);
-        stateFalling = new CharacterStateFalling(stateMachine, this, _fallMultiplier);
-        stateLeftSliding = new CharacterStateSlidingLeft(stateMachine, this, 1);
-        stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, -1);
+        //stateMachine = new CharacterStateMachine();
+        //stateIdle = new CharacterStateIdle(stateMachine, this);
+        //stateMoving = new CharacterStateMoving(stateMachine, this);
+        //stateJumping = new CharacterStateJumping(stateMachine, this, _jumpForce);
+        //stateWallJumping = new CharacterStateWallJumping(stateMachine, this, _jumpForce);
+        //stateFalling = new CharacterStateFalling(stateMachine, this, _fallMultiplier);
+        //stateLeftSliding = new CharacterStateSlidingLeft(stateMachine, this, 1);
+        //stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, -1);
+        //stateAttakcing = new CharacterStateAttaking(stateMachine, this) ;
 
-        stateMachine.Initialize(stateIdle);
+    stateMachine.Initialize(stateIdle);
 
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -76,6 +80,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        OnChangeState();
+
         stateMachine.currentState.UpdateFrame();
 
         if(Input.GetAxis("Horizontal") > 0)
@@ -92,6 +99,15 @@ public class Player : MonoBehaviour
         animator.SetFloat(VELY_PARAM, _rb.velocity.y);
         animator.SetFloat(SPEEDX_PARAM, Math.Abs(_rb.velocity.x));
         animator.SetFloat(SPEEDY_PARAM, Math.Abs(_rb.velocity.y));
+        animator.SetBool(ISATTACKING_PARAM, isAttaking);
+    }
+
+    public void OnChangeState()
+    {
+        if(Input.GetKeyDown(KeyCode.E)) {
+            isAttaking = true;
+            stateMachine.ChangeState(stateAttakcing);        
+        }
     }
 
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterStateIdle : CharacterState
 {
 
-    public CharacterStateIdle(CharacterStateMachine stateMachine, Player p) : base(stateMachine, p)
+    public CharacterStateIdle() : base()
     {
 
     }

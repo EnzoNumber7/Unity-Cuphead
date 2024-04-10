@@ -7,7 +7,7 @@ public class CharacterStateWallJumping : CharacterState
 
     public float jumpForce;
 
-    public CharacterStateWallJumping(CharacterStateMachine stateMachine, Player p, float JumpForce) : base(stateMachine, p) { jumpForce = JumpForce; }
+    public CharacterStateWallJumping(float JumpForce) : base() { jumpForce = JumpForce; }
 
     public override void EnterState()
     {
