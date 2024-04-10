@@ -43,7 +43,7 @@ public class Kunai : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         lastNode = transform.gameObject;
         Nodes.Add(transform.gameObject);
-        rb.AddForce(transform.up * launchPower * 5);
+        rb.AddForce(transform.up * launchPower * 3);
         attachable = true;
         fallen = false;
     }
@@ -60,7 +60,6 @@ public class Kunai : MonoBehaviour
         }
         else if (done == false && isAttached == true)
         {
-            print("done");
             done = true;
             while (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)
             {
@@ -152,7 +151,7 @@ public class Kunai : MonoBehaviour
 
     public void ReturnToPlayer(Vector3 playerPos)
     {
-        Vector3 testpos = new Vector3 (playerPos.x,playerPos.y + 2,1) ;
+        Vector3 testpos = new Vector3 (playerPos.x,playerPos.y + 1,1) ;
         rb.AddForce((testpos - transform.position).normalized * returnPower);
     }
     
