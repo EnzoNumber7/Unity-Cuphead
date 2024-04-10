@@ -51,11 +51,11 @@ public class PlayerMovementEnzo : MonoBehaviour
                 firePointPos();
             }
 
-            if (Input.GetKey(KeyCode.A) && blockedDirection != Direction.Left)
+            if (Input.GetKey(KeyCode.A))
             {
                 currentVelocity.x -= speed;
             }
-            if (Input.GetKey(KeyCode.D) && blockedDirection != Direction.Right)
+            if (Input.GetKey(KeyCode.D) )
             {
                 currentVelocity.x += speed;
             }
@@ -66,12 +66,7 @@ public class PlayerMovementEnzo : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(1) && isUsed == true)
             {
-                if (Vector2.Distance(ropeObject.GetComponent<Rope>().topObject.transform.position, ropeObject.GetComponent<Rope>().anchor.transform.position) < 0.01)
-                {
-                    ropeObject.GetComponent<Rope>().RemoveElement();
-                }
-
-                //currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
+                currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
             }
             if (Input.GetKeyDown(KeyCode.Space) && feet.GetComponent<Player_Feet>().isGrounded)
             {
