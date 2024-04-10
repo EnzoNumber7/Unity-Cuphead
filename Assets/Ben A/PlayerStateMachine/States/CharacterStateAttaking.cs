@@ -33,7 +33,7 @@ public class CharacterStateAttaking : CharacterState
 
         if (player._cac.GetComponent<Cac>().isEnemyForward && endAttack)
         {
-            ((Enemy)player._cac.GetComponent<Cac>().enemy.GetComponent<Enemy>()).TakeDamage(1);
+            ((Enemy)player._cac.GetComponent<Cac>().enemy.GetComponent<Enemy>()).TakeDamage(1,player.gameObject);
         }
 
         player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100,player._rb.velocity.y);
