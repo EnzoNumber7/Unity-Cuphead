@@ -87,7 +87,6 @@ public class PlayerMovementEnzo : MonoBehaviour
             }
 
             rb.velocity = currentVelocity;
-            //CheckRange();
         }
     }
 
@@ -99,6 +98,7 @@ public class PlayerMovementEnzo : MonoBehaviour
         currentKunai = Instantiate(Kunai, firePoint.transform.position, firePoint.transform.rotation);
         Grab.GetComponent<Grab>().GetCurrentKunai(currentKunai);
         currentKunai.GetComponent<Kunai>().destiny = mousePos;
+        currentKunai.GetComponent<Kunai>().playerPosShoot = (Vector2) transform.position;
 
     }
 
