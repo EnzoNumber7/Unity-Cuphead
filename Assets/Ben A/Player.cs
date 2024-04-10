@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         }
         else if(Input.GetAxis("Horizontal") < 0)
         {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, 0);
+            transform.localScale = new Vector3(Math.Abs(transform.localScale.x) * -1, transform.localScale.y, 0);
         }
 
         animator.SetBool(IS_GROUNDED_PARAM, _feet.GetComponent<FeetPlayer>().isGrounded);
