@@ -18,18 +18,15 @@ public class CharacterStateAttaking : CharacterState
 
     public override void EnterState() 
     {
-        print("debut att");
-
-        StartCoroutine(Hein());
-
-        print("vraiment debut att");
-
+        endAttack = false;
         StartCoroutine(WaitAndReturn(0.5f));
     }
 
     public override void ExitState()
     {
+        print("exit state");
         player.isAttaking = false;
+        player.animator.SetBool("IsAttacking", false);
     }
 
     public override void UpdateFrame()
@@ -73,12 +70,4 @@ public class CharacterStateAttaking : CharacterState
         yield return new WaitForSeconds(attSpeed);
         endAttack = true;
     }
-
-    public IEnumerator Hein()
-    {
-        print("go");
-        yield return new WaitForSeconds(1);
-        print("ze");
-    }
-
 }

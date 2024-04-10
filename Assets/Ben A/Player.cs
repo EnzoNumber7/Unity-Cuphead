@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
         //stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, -1);
         //stateAttakcing = new CharacterStateAttaking(stateMachine, this) ;
 
-    stateMachine.Initialize(stateIdle);
+        stateMachine.Initialize(stateIdle);
 
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -99,14 +99,19 @@ public class Player : MonoBehaviour
         animator.SetFloat(VELY_PARAM, _rb.velocity.y);
         animator.SetFloat(SPEEDX_PARAM, Math.Abs(_rb.velocity.x));
         animator.SetFloat(SPEEDY_PARAM, Math.Abs(_rb.velocity.y));
-        animator.SetBool(ISATTACKING_PARAM, isAttaking);
+        
     }
 
     public void OnChangeState()
     {
         if(Input.GetKeyDown(KeyCode.E)) {
             isAttaking = true;
-            stateMachine.ChangeState(stateAttakcing);        
+            animator.SetBool(ISATTACKING_PARAM, isAttaking);
+            stateMachine.ChangeState(stateAttakcing);
+            
+        }else if(Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetBool(ISATTACKING_PARAM, isAttaking);
         }
     }
 
