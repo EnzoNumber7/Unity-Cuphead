@@ -26,9 +26,10 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, GameObject entity)
     {
         hp -= damage;
+        KnockBack(entity);
     }
 
     public void EnemyShoot()
@@ -40,6 +41,27 @@ public class Enemy : MonoBehaviour
             firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
 
             currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player")
+        {
+            collision.gameObject.GetComponent<MainPlayer>().TakeDamage(1, gameObject);
+        }
+    }
+
+    public void KnockBack(GameObject entity)
+    {
+        Vector2 entityPos = entity.transform.position;
+        if (entityPos.x < transform.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-100, 2);
+        }
+        else if (entityPos.x > transform.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(100, 2);
         }
     }
 
