@@ -520,7 +520,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &750253311872566159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6ca9cf8f79766f41ab87b150d897c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 5
   EnemySpeed: 5
   firePoint: {fileID: 357457573753843866}
   shuriken: {fileID: 4032167250423032550, guid: 5cdf2dbf394851643aac0d560dd96ed6, type: 3}

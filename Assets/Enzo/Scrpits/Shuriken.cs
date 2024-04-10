@@ -20,7 +20,7 @@ public class Shuriken : MonoBehaviour
     {
         if (collision.collider.tag == "Player")
         {
-            collision.gameObject.GetComponent<MainPlayer>().TakeDamage(1);
+            collision.gameObject.GetComponent<MainPlayer>().TakeDamage(1, gameObject) ;
         }
         Destroy(gameObject);
     }

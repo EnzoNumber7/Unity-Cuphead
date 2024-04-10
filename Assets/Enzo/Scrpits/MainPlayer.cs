@@ -17,8 +17,22 @@ public class MainPlayer : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, GameObject entity)
     {
         hp -= damage;
+        KnockBack(entity);
+    }
+
+    public void KnockBack(GameObject entity)
+    {
+        Vector2 entityPos = entity.transform.position;
+        if (entityPos.x < transform.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-100,2);
+        }
+        else if (entityPos.x > transform.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(100, 2);
+        }
     }
 }

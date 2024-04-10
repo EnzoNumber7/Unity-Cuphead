@@ -74,7 +74,8 @@ public class Kunai : MonoBehaviour
     {
         if (collision.collider.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(1);
+            collision.gameObject.GetComponent<Enemy>().TakeDamage(1, gameObject);
+            
         }
     }
     public void Attach(Collider2D collision)
