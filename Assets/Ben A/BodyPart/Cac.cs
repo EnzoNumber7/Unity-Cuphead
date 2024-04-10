@@ -10,7 +10,7 @@ public class Cac : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "enemy")
+        if(collision.tag == "Enemy")
         {
             isEnemyForward = true;
             enemy = collision.gameObject;

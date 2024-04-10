@@ -14,7 +14,7 @@ public class CharacterStateJumping : CharacterState
         if (!player._feet.GetComponent<FeetPlayer>().isGrounded)
             return;
 
-        player._rb.AddForce(new Vector2(player._rb.velocity.x, player._jumpForce));
+        player._rb.AddForce(new Vector2(player._rb.velocity.x, jumpForce));
     }
     public override void ExitState() { }
 

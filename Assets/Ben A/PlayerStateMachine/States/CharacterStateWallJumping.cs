@@ -11,7 +11,7 @@ public class CharacterStateWallJumping : CharacterState
 
     public override void EnterState()
     {
-        player._rb.AddForce(new Vector2(player._jumpForce, player._jumpForce));
+        player._rb.AddForce(new Vector2(jumpForce, jumpForce));
     }
     public override void ExitState() { }
 

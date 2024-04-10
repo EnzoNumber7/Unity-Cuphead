@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class CharacterStateSlidingLeft : CharacterStateSliding
 {
-    public CharacterStateSlidingLeft(int direction) : base(direction)
-    {
-    }
+    public CharacterStateSlidingLeft() : base() { }
 
     public override void UpdateFrame()
     {
@@ -22,7 +20,6 @@ public class CharacterStateSlidingLeft : CharacterStateSliding
 
     public override void OnChangeState()
     {
-
         if (player._feet.GetComponent<FeetPlayer>().isGrounded)
         {
             characterStateMachine.ChangeState(player.stateIdle);
@@ -36,9 +33,6 @@ public class CharacterStateSlidingLeft : CharacterStateSliding
         if (Input.GetKeyDown(KeyCode.Space))
         {
             characterStateMachine.ChangeState(player.stateWallJumping);
-            print("Jump");
         }
-
     }
-
 }

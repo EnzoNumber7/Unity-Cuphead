@@ -17,9 +17,10 @@ public class Player : MonoBehaviour
     public CharacterStateJumping        stateJumping;
     public CharacterStateWallJumping    stateWallJumping;
     public CharacterStateFalling        stateFalling;
-    public CharacterStateSliding        stateLeftSliding;
-    public CharacterStateSliding        stateRightSliding;
+    public CharacterStateSlidingLeft    stateLeftSliding;
+    public CharacterStateSlidingRight   stateRightSliding;
     public CharacterStateAttaking       stateAttakcing;
+    public CharacterStateKunai          stateKunai;
 
     #endregion
 
@@ -45,11 +46,14 @@ public class Player : MonoBehaviour
     public GameObject _cac;
 
     public Animator animator;
-
-    [SerializeField] public float _jumpForce;
-    [SerializeField] private float _fallMultiplier;
-
     public bool isAttaking;
+
+    //Kunai 
+    private float kunaiRadius;
+    private GameObject firePoint;
+
+    public bool isUsed;
+
 
     void Awake()
     {
@@ -69,7 +73,10 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         //_isGrounded = _feet.GetComponent<FeetPlayer>().isGrounded;
 
-    }
+        kunaiRadius = stateKunai.kunaiRadius;
+        firePoint = stateKunai.firePoint;
+
+}
 
     // Start is called before the first frame update
     void Start()
@@ -84,6 +91,8 @@ public class Player : MonoBehaviour
         OnChangeState();
 
         stateMachine.currentState.UpdateFrame();
+
+        firePointPos();
 
         if(Input.GetAxis("Horizontal") > 0)
         {
@@ -104,15 +113,26 @@ public class Player : MonoBehaviour
 
     public void OnChangeState()
     {
-        if(Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             isAttaking = true;
             animator.SetBool(ISATTACKING_PARAM, isAttaking);
             stateMachine.ChangeState(stateAttakcing);
-            
-        }else if(Input.GetKeyDown(KeyCode.E))
-        {
-            animator.SetBool(ISATTACKING_PARAM, isAttaking);
         }
+    }
+
+    private void firePointPos()
+    {
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        float angle = Mathf.Atan2(mousePos.y - stateKunai.firePoint.transform.position.y, mousePos.x - stateKunai.firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
+
+        stateKunai.firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
+        Vector2 firePointPos = stateKunai.firePoint.transform.position;
+        Vector2 playerPos = transform.position;
+        Vector2 direction = (mousePos - firePointPos).normalized;
+
+        stateKunai.firePoint.transform.position = playerPos + direction * kunaiRadius;
+
     }
 
 }

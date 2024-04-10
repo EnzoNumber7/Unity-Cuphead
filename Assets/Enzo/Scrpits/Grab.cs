@@ -18,6 +18,7 @@ public class Grab : MonoBehaviour
         if(collision.gameObject == currentKunai)
         {
             currentKunai.GetComponent<Kunai>().DeleteKunai();
+            gameObject.transform.parent.GetComponent<Player>().isUsed = false;
         }
     }
 }

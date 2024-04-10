@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterStateAttaking : CharacterState
 {
 
-    private bool endAttack = false;
+    private bool endAttack;
 
 
     public CharacterStateAttaking() : base() {  }
@@ -24,26 +24,27 @@ public class CharacterStateAttaking : CharacterState
 
     public override void ExitState()
     {
-        print("exit state");
         player.isAttaking = false;
         player.animator.SetBool("IsAttacking", false);
     }
 
     public override void UpdateFrame()
     {
-        base.UpdateFrame();
 
-        if (player._cac.GetComponent<Cac>().isEnemyForward)
+        if (player._cac.GetComponent<Cac>().isEnemyForward && endAttack)
         {
             ((Enemy)player._cac.GetComponent<Cac>().enemy.GetComponent<Enemy>()).TakeDamage(1);
         }
+
+        player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100,player._rb.velocity.y);
+
+        base.UpdateFrame();
     }
 
     public override void OnChangeState()
     {
         if(endAttack)
         {
-            print("fin att");
 
             if (player._rb.velocity.y > 0)
             {
@@ -66,7 +67,6 @@ public class CharacterStateAttaking : CharacterState
 
     public IEnumerator WaitAndReturn(float attSpeed)
     {
-        print("coroutine oue");
         yield return new WaitForSeconds(attSpeed);
         endAttack = true;
     }

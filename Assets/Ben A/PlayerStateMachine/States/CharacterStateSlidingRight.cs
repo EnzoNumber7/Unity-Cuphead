@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterStateSlidingRight : CharacterStateSliding
 {
-    public CharacterStateSlidingRight(int direction) : base(direction)   
+    public CharacterStateSlidingRight() : base()   
     {
     }
 
@@ -14,7 +14,11 @@ public class CharacterStateSlidingRight : CharacterStateSliding
 
         player._rb.velocity -= new Vector2(0, player._rb.velocity.y);
 
-        
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            player._rb.velocity -= new Vector2(Input.GetAxis("Horizontal") / 2, 0);
+        }
+
     }
 
     public override void OnChangeState()
@@ -33,7 +37,6 @@ public class CharacterStateSlidingRight : CharacterStateSliding
         if (Input.GetKeyDown(KeyCode.Space))
         {
             characterStateMachine.ChangeState(player.stateWallJumping);
-            print("Jump");
         }
 
     }

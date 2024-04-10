@@ -32,23 +32,29 @@ public class Enemy : MonoBehaviour
         KnockBack(entity);
     }
 
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        print("aie");
+    }
+
     public void EnemyShoot()
     {
-        if (currentShuriken == null)
-        {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
-            firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
+            //if (currentShuriken == null)
+            //{
+            //    GameObject player = GameObject.FindGameObjectWithTag("Player");
+            //    float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
+            //    firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
 
-            currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
-        }
+            //    currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
+            //}
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "Player")
         {
-            collision.gameObject.GetComponent<MainPlayer>().TakeDamage(1, gameObject);
+            collision.gameObject.GetComponent<MainPlayer>()?.TakeDamage(1, gameObject);
         }
     }
 

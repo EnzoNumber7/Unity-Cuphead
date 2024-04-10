@@ -50,15 +50,8 @@ public class Kunai : MonoBehaviour
 
     private void Update()
     {
-        if (isAttached == false)
-        {
-            if (Vector2.Distance(playerPosShoot, lastNode.transform.position) > 5f)
-            {
-                CreateNode();
-            }
-
-        }
-        else if (done == false && isAttached == true)
+        
+        if (done == false && isAttached == true)
         {
             done = true;
             while (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)
