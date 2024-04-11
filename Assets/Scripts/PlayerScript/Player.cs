@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
 
     public bool isUsed;
 
-   [SerializeField] int myCoins = 0;
+    [SerializeField] public int coins = 0;
     [SerializeField] int test;
 
 
@@ -87,7 +87,6 @@ public class Player : MonoBehaviour
         OnChangeState();
 
         stateMachine.currentState.UpdateFrame();
-        Debug.Log(stateMachine.currentState);
        
         firePointPos();
 
@@ -154,8 +153,8 @@ public class Player : MonoBehaviour
     
     public void GetCoins()
     {
-        myCoins++;
-        print(myCoins);
+        coins++;
+        print(coins);
         test++;
 
     }

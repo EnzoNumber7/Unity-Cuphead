@@ -21,7 +21,7 @@ public class ChakraScript : MonoBehaviour
             
             player.GetComponent<Player>().GetCoins();
             Destroy(gameObject);
-            //player.GetComponent<TextUpdate>().UpdateText();
+            player.GetComponent<UpdateText>().ChangeText();
 
         }
     }
