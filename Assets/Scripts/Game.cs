@@ -19,7 +19,6 @@ public class Game : MonoBehaviour
     {
         if (player.transform.position.x >= winPlace.transform.position.x)
         {
-            Debug.Log("OMG C GAGNER");
             win = true;
         }
     }

@@ -596,7 +596,7 @@ MonoBehaviour:
   fallen: 0
   launchPower: 300
   powerKnockBack: 2
-  returnPower: 500
+  returnPower: 3000
 --- !u!233 &928269903643163093
 HingeJoint2D:
   m_ObjectHideFlags: 0

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -37,7 +36,7 @@ public class Player : MonoBehaviour
     #endregion
 
     [Range(20, 50)] public float _speed;
-
+    [SerializeField] private float hp;
     public Rigidbody2D _rb;
     public GameObject _feet;
 
@@ -83,9 +82,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Respawn();
         OnChangeState();
-
+        Debug.Log(stateMachine.currentState);
         stateMachine.currentState.UpdateFrame();
 
 
@@ -148,6 +147,38 @@ public class Player : MonoBehaviour
         print(coins);
         test++;
 
+    }
+
+    public void TakeDamage(float damage, GameObject entity)
+    {
+        hp -= damage;
+        KnockBack(entity);
+    }
+
+    public void KnockBack(GameObject entity)
+    {
+        Vector2 entityPos = entity.transform.position;
+        if (entityPos.x < transform.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(2, 5);
+        }
+        else if (entityPos.x > transform.position.x)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-2, 5);
+        }
+    }
+
+    public void Respawn()
+    {
+        if (transform.position.y < -8)
+        {
+            transform.position = new Vector2(-4f, -2.9f);
+            if (stateKunai.currentKunai != null)
+            {
+                stateKunai.currentKunai.GetComponent<Kunai>().DeleteKunai();
+            }
+            stateMachine.ChangeState(stateIdle);
+        }
     }
 
 }
