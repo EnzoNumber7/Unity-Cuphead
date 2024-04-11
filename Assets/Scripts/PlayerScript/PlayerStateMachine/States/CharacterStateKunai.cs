@@ -14,6 +14,8 @@ public class CharacterStateKunai : CharacterState
     [SerializeField]private Vector2 mousePos;
 
     [SerializeField] public GameObject firePoint;
+    [SerializeField] public GameObject visuFirepoint;
+
 
     [SerializeField] public GameObject currentKunai;
     [SerializeField] public GameObject Grab;
@@ -88,10 +90,10 @@ public class CharacterStateKunai : CharacterState
 
     private void Shoot()
     {
-        float angle = Mathf.Atan2(mousePos.y - firePoint.transform.position.y, mousePos.x - firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.Atan2(mousePos.y - visuFirepoint.transform.position.y, mousePos.x - visuFirepoint.transform.position.x) * Mathf.Rad2Deg - 90f;
 
         firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
-        currentKunai = Instantiate(Kunai, firePoint.transform.position, firePoint.transform.rotation);
+        currentKunai = Instantiate(Kunai, visuFirepoint.transform.position, visuFirepoint.transform.rotation);
         Grab.GetComponent<Grab>().GetCurrentKunai(currentKunai);
         currentKunai.GetComponent<Kunai>().destiny = mousePos;
 
@@ -116,7 +118,6 @@ public class CharacterStateKunai : CharacterState
             Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
             KunaiRb.AddForce(direction * stopPower, ForceMode2D.Impulse);
             KunaiRb.bodyType = RigidbodyType2D.Dynamic;
-            //scriptKunai.attachable = false;
             scriptKunai.fallen = true;
         }
         if (distance > rangeRadius + 1.15f && scriptKunai.fallen == true && scriptKunai.isAttached == false)

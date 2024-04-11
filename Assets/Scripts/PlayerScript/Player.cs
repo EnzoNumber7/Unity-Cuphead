@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     public bool isAttaking;
 
-    //Kunai 
+    //Kunai
     private float kunaiRadius;
     private GameObject firePoint;
 
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         kunaiRadius = stateKunai.kunaiRadius;
         firePoint = stateKunai.firePoint;
 
-        
+
 
 }
 
@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         OnChangeState();
 
         stateMachine.currentState.UpdateFrame();
-       
+
         firePointPos();
 
         if (Input.GetAxis("Horizontal") > 0)
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
         animator.SetFloat(VELY_PARAM, _rb.velocity.y);
         animator.SetFloat(SPEEDX_PARAM, Math.Abs(_rb.velocity.x));
         animator.SetFloat(SPEEDY_PARAM, Math.Abs(_rb.velocity.y));
-        
+
     }
 
     public void OnChangeState()
@@ -137,20 +137,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void firePointPos()
-    {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(mousePos.y - stateKunai.firePoint.transform.position.y, mousePos.x - stateKunai.firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
 
-        stateKunai.firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
-        Vector2 firePointPos = stateKunai.firePoint.transform.position;
-        Vector2 playerPos = transform.position;
-        Vector2 direction = (mousePos - firePointPos).normalized;
 
-        stateKunai.firePoint.transform.position = playerPos + direction * kunaiRadius;
-
-    }
-    
     public void GetCoins()
     {
         coins++;

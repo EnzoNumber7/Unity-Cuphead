@@ -354,6 +354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 14548342}
+  kunaiRadius: 2
+  player: {fileID: 0}
 --- !u!1 &433848009
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,7 +569,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 16
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -592,7 +594,7 @@ Transform:
   m_GameObject: {fileID: 1234597094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.67, z: -10}
+  m_LocalPosition: {x: 0.04, y: 2.16, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -995,9 +997,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 14548342}
+    - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
       propertyPath: stopPower
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
+      propertyPath: rangeRadius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
+      propertyPath: visuFirepoint
+      value: 
+      objectReference: {fileID: 149585154}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
