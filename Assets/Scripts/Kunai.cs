@@ -50,8 +50,7 @@ public class Kunai : MonoBehaviour
 
     private void Update()
     {
-        
-        if (done == false && isAttached == true)
+            if (done == false && isAttached == true)
         {
             done = true;
             while (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)
@@ -108,7 +107,9 @@ public class Kunai : MonoBehaviour
         transform.SetParent(collision.transform, true);
         rb.bodyType = RigidbodyType2D.Static;
         GetComponent<HingeJoint2D>().enabled = true;
-        
+        player.GetComponent<CharacterStateKunai>().firePoint.GetComponent<HingeJoint2D>().enabled = true;
+
+
     }
 
     public void Detach(Vector3 playerPos)
@@ -117,6 +118,7 @@ public class Kunai : MonoBehaviour
         rb.AddForce((playerPos - transform.position).normalized * powerKnockBack,ForceMode2D.Impulse);
         attachable = false;
         GetComponent<HingeJoint2D>().enabled = false;
+        player.GetComponent<CharacterStateKunai>().firePoint.GetComponent<HingeJoint2D>().enabled = false;
 
     }
 
@@ -153,5 +155,7 @@ public class Kunai : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    
 
 }

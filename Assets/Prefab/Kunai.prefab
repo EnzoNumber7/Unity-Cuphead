@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destiny: {x: 0, y: 0}
-  distance: 2
+  distance: 0.5
   nodePrefab: {fileID: 8608663367315369282, guid: 502765c7416f5cd4083a8b4de0b70b85, type: 3}
   player: {fileID: 0}
   lastNode: {fileID: 0}
@@ -620,8 +620,8 @@ HingeJoint2D:
     m_MaximumMotorForce: 10000
   m_UseLimits: 1
   m_AngleLimits:
-    m_LowerAngle: -60
-    m_UpperAngle: 240
+    m_LowerAngle: -180
+    m_UpperAngle: 180
 --- !u!120 &-7870564933343142374
 LineRenderer:
   serializedVersion: 2
@@ -643,7 +643,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: fcc38009cbdd2844b91d04ff7c1cfad1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
