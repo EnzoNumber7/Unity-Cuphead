@@ -49,13 +49,13 @@ public class Player : MonoBehaviour
     public Animator animator;
     public bool isAttaking;
 
-    //Kunai 
+    //Kunai
     private float kunaiRadius;
     private GameObject firePoint;
 
     public bool isUsed;
 
-   [SerializeField] int myCoins = 0;
+    [SerializeField] public int coins = 0;
     [SerializeField] int test;
 
 
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         kunaiRadius = stateKunai.kunaiRadius;
         firePoint = stateKunai.firePoint;
 
-        
+
 
 }
 
@@ -87,7 +87,8 @@ public class Player : MonoBehaviour
         OnChangeState();
 
         stateMachine.currentState.UpdateFrame();
-        Debug.Log(stateMachine.currentState);
+
+        firePointPos();
 
         if (Input.GetAxis("Horizontal") > 0)
         {
@@ -106,7 +107,7 @@ public class Player : MonoBehaviour
         animator.SetFloat(VELY_PARAM, _rb.velocity.y);
         animator.SetFloat(SPEEDX_PARAM, Math.Abs(_rb.velocity.x));
         animator.SetFloat(SPEEDY_PARAM, Math.Abs(_rb.velocity.y));
-        
+
     }
 
     public void OnChangeState()
@@ -136,12 +137,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    
-    
+
+
     public void GetCoins()
     {
-        myCoins++;
-        print(myCoins);
+        coins++;
+        print(coins);
         test++;
 
     }
