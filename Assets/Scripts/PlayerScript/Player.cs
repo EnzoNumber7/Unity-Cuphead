@@ -111,6 +111,10 @@ public class Player : MonoBehaviour
 
     public void OnChangeState()
     {
+        if(stateKunai.currentKunai == null)
+        {
+            isUsed = false;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             isAttaking = true;
