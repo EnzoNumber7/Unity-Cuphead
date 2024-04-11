@@ -88,8 +88,6 @@ public class Player : MonoBehaviour
 
         stateMachine.currentState.UpdateFrame();
 
-        firePointPos();
-
         if (Input.GetAxis("Horizontal") > 0)
         {
             transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y,0);
