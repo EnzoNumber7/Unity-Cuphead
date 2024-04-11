@@ -12,13 +12,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float EnemySpeed;
     [SerializeField] private GameObject firePoint;
     [SerializeField] private GameObject shuriken;
+    [SerializeField] private float shootDistance;
     private GameObject currentShuriken;
+    private AudioSource audioSource;
 
     public Player player;
 
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         StartCoroutine(ShootTime());
     }
@@ -52,14 +54,18 @@ public class Enemy : MonoBehaviour
 
     public void EnemyShoot()
     {
-            //if (currentShuriken == null)
-            //{
-            //    GameObject player = GameObject.FindGameObjectWithTag("Player");
-            //    float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
-            //    firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
+        if(Vector2.Distance(player.transform.position, transform.position) <= shootDistance)
+        {
+            if (currentShuriken == null)
+            {
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
+                firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
 
-            //    currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
-            //}
+                currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
+            }
+            audioSource.Play();
+        }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)

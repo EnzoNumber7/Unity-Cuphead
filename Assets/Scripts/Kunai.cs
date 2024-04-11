@@ -50,6 +50,21 @@ public class Kunai : MonoBehaviour
 
     private void Update()
     {
+        if (isAttached && Vector2.Distance(player.transform.position, transform.position) > distance * Nodes.Count * 1.1)
+        {
+            if (player.transform.position.x < transform.position.x)
+            {
+                player.GetComponent<Player>().blockedDirection = BlockedDirection.Left;
+            }
+            if (player.transform.position.x > transform.position.x)
+            {
+                player.GetComponent<Player>().blockedDirection = BlockedDirection.Right;
+            }
+        }
+        else
+        {
+            player.GetComponent<Player>().blockedDirection = BlockedDirection.None;
+        }
         //transform.position = Vector2.MoveTowards(transform.position, destiny, speed);
         if (done == false && isAttached == true)
         {

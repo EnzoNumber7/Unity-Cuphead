@@ -18,10 +18,15 @@ public class Shuriken : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Player")
+        if (collision.collider.tag != "Enemy")
         {
-            collision.gameObject.GetComponent<MainPlayer>().TakeDamage(1, gameObject) ;
+            if (collision.collider.tag == "Player")
+            {
+                collision.gameObject.GetComponent<MainPlayer>().TakeDamage(1, gameObject);
+            }
+
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+            
     }
 }
