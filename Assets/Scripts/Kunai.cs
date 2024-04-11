@@ -125,9 +125,9 @@ public class Kunai : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.AddForce((playerPos - transform.position).normalized * powerKnockBack,ForceMode2D.Impulse);
         attachable = false;
+        isAttached = false;
+        fallen = true;
         GetComponent<HingeJoint2D>().enabled = false;
-        player.GetComponent<CharacterStateKunai>().firePoint.GetComponent<HingeJoint2D>().enabled = false;
-
     }
 
     private void CreateNode()

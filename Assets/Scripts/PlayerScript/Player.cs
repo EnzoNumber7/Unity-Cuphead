@@ -123,9 +123,9 @@ public class Player : MonoBehaviour
             stateMachine.ChangeState(stateKunai);
             isUsed = true;
         }
-        if (stateKunai.currentKunai != null && stateKunai.currentKunai.GetComponent<Kunai>().fallen == true)
+        if (stateKunai.currentKunai != null)
         {
-            if (Input.GetMouseButtonDown(1) && isUsed == true)
+            if (Input.GetMouseButtonDown(1) && isUsed == true && stateKunai.currentKunai.GetComponent<Kunai>().fallen == true)
             {
                 stateKunai.currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
             }
