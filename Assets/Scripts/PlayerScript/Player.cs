@@ -88,8 +88,6 @@ public class Player : MonoBehaviour
 
         stateMachine.currentState.UpdateFrame();
         Debug.Log(stateMachine.currentState);
-       
-        firePointPos();
 
         if (Input.GetAxis("Horizontal") > 0)
         {
@@ -138,19 +136,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void firePointPos()
-    {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        float angle = Mathf.Atan2(mousePos.y - stateKunai.firePoint.transform.position.y, mousePos.x - stateKunai.firePoint.transform.position.x) * Mathf.Rad2Deg - 90f;
-
-        stateKunai.firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
-        Vector2 firePointPos = stateKunai.firePoint.transform.position;
-        Vector2 playerPos = transform.position;
-        Vector2 direction = (mousePos - firePointPos).normalized;
-
-        stateKunai.firePoint.transform.position = playerPos + direction * kunaiRadius;
-
-    }
+    
     
     public void GetCoins()
     {
