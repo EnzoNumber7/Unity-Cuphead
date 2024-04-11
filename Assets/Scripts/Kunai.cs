@@ -50,7 +50,8 @@ public class Kunai : MonoBehaviour
 
     private void Update()
     {
-            if (done == false && isAttached == true)
+        //transform.position = Vector2.MoveTowards(transform.position, destiny, speed);
+        if (done == false && isAttached == true)
         {
             done = true;
             while (Vector2.Distance(player.transform.position, lastNode.transform.position) > distance)

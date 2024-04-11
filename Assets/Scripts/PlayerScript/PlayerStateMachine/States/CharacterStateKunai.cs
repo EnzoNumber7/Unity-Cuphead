@@ -116,7 +116,7 @@ public class CharacterStateKunai : CharacterState
             Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
             KunaiRb.AddForce(direction * stopPower, ForceMode2D.Impulse);
             KunaiRb.bodyType = RigidbodyType2D.Dynamic;
-            scriptKunai.attachable = false;
+            //scriptKunai.attachable = false;
             scriptKunai.fallen = true;
         }
         if (distance > rangeRadius + 1.15f && scriptKunai.fallen == true && scriptKunai.isAttached == false)

@@ -8,6 +8,6 @@ public class TextUpdate : MonoBehaviour
     public Player player;
     public void Update()
     {
-        gameObject.GetComponent<Text>().text = player.coins.ToString();
+        //gameObject.GetComponent<Text>().text = player.coins.ToString();
     }
 }

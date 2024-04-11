@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public CharacterStateSlidingRight   stateRightSliding;
     public CharacterStateAttaking       stateAttakcing;
     public CharacterStateKunai          stateKunai;
+    public CharacterStateBalancing      stateBalancing;
 
     #endregion
 
@@ -82,6 +83,7 @@ public class Player : MonoBehaviour
         OnChangeState();
 
         stateMachine.currentState.UpdateFrame();
+        Debug.Log(stateMachine.currentState);
        
         firePointPos();
 

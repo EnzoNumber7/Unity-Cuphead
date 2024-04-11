@@ -315,6 +315,7 @@ MonoBehaviour:
   stateRightSliding: {fileID: 8113845313107708051}
   stateAttakcing: {fileID: 5252646761107097547}
   stateKunai: {fileID: 6839791754181709450}
+  stateBalancing: {fileID: 4512636146160588487}
   _speed: 32.7
   _rb: {fileID: 0}
   _feet: {fileID: 4008793361076598930}
@@ -5168,7 +5169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e7cc0d13ed2b944b54ad5bf55e9d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  counterText: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &4329665277982540876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5523,6 +5524,7 @@ GameObject:
   - component: {fileID: 8113845313107708051}
   - component: {fileID: 9166774031357512265}
   - component: {fileID: 5960074070622347615}
+  - component: {fileID: 4512636146160588487}
   - component: {fileID: 6839791754181709450}
   m_Layer: 0
   m_Name: State
@@ -5670,6 +5672,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 0}
+--- !u!114 &4512636146160588487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048554695944969751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea525ec8853a4a34c83041004b94b25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feet: {fileID: 4008793361076598930}
+  kunai: {fileID: 8820252996138565317, guid: 1edaf7de0ec947e4fb184129faa6d867, type: 3}
 --- !u!114 &6839791754181709450
 MonoBehaviour:
   m_ObjectHideFlags: 0
