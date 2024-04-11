@@ -51,8 +51,12 @@ public class CharacterStateKunai : CharacterState
         {
             endAttack = CheckKunai();
         }
+        else
+        {
+            endAttack = true;
+        }
 
-        if (endAttack) //Attaquer avec le kunai
+        if (endAttack && currentKunai != null) //Attaquer avec le kunai
         {
             GameObject target = currentKunai.GetComponent<Kunai>().transform.parent.gameObject;
             if (target.tag == "Enemy")
@@ -119,6 +123,7 @@ public class CharacterStateKunai : CharacterState
             KunaiRb.AddForce(direction * stopPower, ForceMode2D.Impulse);
             KunaiRb.bodyType = RigidbodyType2D.Dynamic;
             scriptKunai.fallen = true;
+            scriptKunai.attachable = true;
         }
         if (distance > rangeRadius + 1.15f && scriptKunai.fallen == true && scriptKunai.isAttached == false)
         {
