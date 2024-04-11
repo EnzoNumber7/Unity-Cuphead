@@ -54,6 +54,8 @@ public class Player : MonoBehaviour
 
     public bool isUsed;
 
+    public int coins = 1;
+
 
     void Awake()
     {
@@ -105,11 +107,28 @@ public class Player : MonoBehaviour
 
     public void OnChangeState()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
         {
             isAttaking = true;
             animator.SetBool(ISATTACKING_PARAM, isAttaking);
             stateMachine.ChangeState(stateAttakcing);
+        }
+
+        if (Input.GetMouseButtonDown(1) && isUsed == false)
+        {
+            stateMachine.ChangeState(stateKunai);
+            isUsed = true;
+        }
+        if (stateKunai.currentKunai != null)
+        {
+            if (Input.GetMouseButtonDown(1) && isUsed == true)
+            {
+                stateKunai.currentKunai.GetComponent<Kunai>().ReturnToPlayer(transform.position);
+            }
+            if (Input.GetKeyDown(KeyCode.Q) && stateKunai.currentKunai.GetComponent<Kunai>().isAttached)
+            {
+                stateKunai.currentKunai.GetComponent<Kunai>().Detach(transform.position);
+            }
         }
     }
 
@@ -125,6 +144,11 @@ public class Player : MonoBehaviour
 
         stateKunai.firePoint.transform.position = playerPos + direction * kunaiRadius;
 
+    }
+    
+    public void GetCoins()
+    {
+        coins++;
     }
 
 }
