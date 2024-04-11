@@ -38,6 +38,10 @@ public class CharacterStateSlidingRight : CharacterStateSliding
         {
             characterStateMachine.ChangeState(player.stateWallJumping);
         }
+        if (Input.GetMouseButtonUp(1))
+        {
+            player.stateMachine.ChangeState(player.stateBalancing);
+        }
 
     }
 

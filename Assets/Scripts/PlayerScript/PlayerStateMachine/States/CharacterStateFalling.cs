@@ -41,6 +41,10 @@ public class CharacterStateFalling : CharacterState
         {
             player.stateMachine.ChangeState(player.stateRightSliding);
         }
+        if (Input.GetMouseButtonUp(1))
+        {
+            player.stateMachine.ChangeState(player.stateBalancing);
+        }
 
     }
 }

@@ -9,8 +9,9 @@ public class CharacterStateKunai : CharacterState
 
     [SerializeField] public float kunaiRadius;
     [SerializeField] public float rangeRadius;
+    [SerializeField] public float stopPower;
 
-    private Vector2 mousePos;
+    [SerializeField]private Vector2 mousePos;
 
     [SerializeField] public GameObject firePoint;
 
@@ -30,6 +31,7 @@ public class CharacterStateKunai : CharacterState
     public override void EnterState()
     {
         endAttack = false;
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Shoot();
     }
 
@@ -37,18 +39,22 @@ public class CharacterStateKunai : CharacterState
     public override void ExitState()
     {
         player.isAttaking = false;
-        //player.animator.SetBool("IsAttacking", false);
     }
 
     public override void UpdateFrame()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        endAttack = CheckKunai();
+        CheckRange();
+        if (currentKunai != null)
+        {
+            endAttack = CheckKunai();
+        }
 
         if (endAttack) //Attaquer avec le kunai
         {
             GameObject target = currentKunai.GetComponent<Kunai>().transform.parent.gameObject;
-            if (target.tag == "Enemy") {
+            if (target.tag == "Enemy")
+            {
                 ((Enemy)target.GetComponent<Enemy>()).TakeDamage(3);
             }
         }
@@ -95,4 +101,32 @@ public class CharacterStateKunai : CharacterState
         return currentKunai.GetComponent<Kunai>().isAttached;
     }
 
+    public void CheckRange()
+    {
+        if (currentKunai == null)
+            return;
+
+        Kunai scriptKunai = currentKunai.GetComponent<Kunai>();
+        Vector2 playerPos = transform.position;
+        Vector2 KunaiPos = currentKunai.transform.position;
+        Vector2 direction = (playerPos - KunaiPos).normalized;
+        float distance = Vector2.Distance(KunaiPos, playerPos);
+        if (distance > rangeRadius && scriptKunai.attachable == true && scriptKunai.isAttached == false)
+        {
+            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
+            KunaiRb.AddForce(direction * stopPower, ForceMode2D.Impulse);
+            KunaiRb.bodyType = RigidbodyType2D.Dynamic;
+            //scriptKunai.attachable = false;
+            scriptKunai.fallen = true;
+        }
+        if (distance > rangeRadius + 1.15f && scriptKunai.fallen == true && scriptKunai.isAttached == false)
+        {
+            Rigidbody2D KunaiRb = currentKunai.GetComponent<Rigidbody2D>();
+            KunaiRb.AddForce((playerPos - direction) * 0.5f, ForceMode2D.Impulse);
+        }
+        if (distance > rangeRadius + 1.15f && scriptKunai.isAttached == true)
+        {
+            player._rb.AddForce((KunaiPos - playerPos) * 0.5f);
+        }
+    }
 }

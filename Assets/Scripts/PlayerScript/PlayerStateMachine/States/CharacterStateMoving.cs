@@ -38,6 +38,11 @@ public class CharacterStateMoving : CharacterState
             characterStateMachine.ChangeState(player.stateJumping);
         }
 
+        if (Input.GetMouseButtonUp(1))
+        {
+            characterStateMachine.ChangeState(player.stateBalancing);
+        }
+
     }
 
 }

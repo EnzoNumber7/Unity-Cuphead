@@ -28,8 +28,7 @@ Transform:
   m_LocalPosition: {x: -2.13, y: 2.59, z: 0}
   m_LocalScale: {x: 0.489175, y: 0.489175, z: 0.489175}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3051756071786600610}
+  m_Children: []
   m_Father: {fileID: 6464090747485220417}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4008793361076598930
@@ -316,6 +315,7 @@ MonoBehaviour:
   stateRightSliding: {fileID: 8113845313107708051}
   stateAttakcing: {fileID: 5252646761107097547}
   stateKunai: {fileID: 6839791754181709450}
+  stateBalancing: {fileID: 4512636146160588487}
   _speed: 32.7
   _rb: {fileID: 0}
   _feet: {fileID: 4008793361076598930}
@@ -5169,7 +5169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14e7cc0d13ed2b944b54ad5bf55e9d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &4329665277982540876
 GameObject:
   m_ObjectHideFlags: 0
@@ -5524,6 +5524,7 @@ GameObject:
   - component: {fileID: 8113845313107708051}
   - component: {fileID: 9166774031357512265}
   - component: {fileID: 5960074070622347615}
+  - component: {fileID: 4512636146160588487}
   - component: {fileID: 6839791754181709450}
   m_Layer: 0
   m_Name: State
@@ -5671,6 +5672,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 0}
+--- !u!114 &4512636146160588487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9048554695944969751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea525ec8853a4a34c83041004b94b25e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  feet: {fileID: 4008793361076598930}
+  kunai: {fileID: 8820252996138565317, guid: 1edaf7de0ec947e4fb184129faa6d867, type: 3}
 --- !u!114 &6839791754181709450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5685,81 +5700,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kunaiRadius: 2
   rangeRadius: 5
+  stopPower: 0
+  mousePos: {x: 0, y: 0}
   firePoint: {fileID: 802945308031424207}
   currentKunai: {fileID: 0}
   Grab: {fileID: 8362177129149354188}
   Kunai: {fileID: 8820252996138565317, guid: 1edaf7de0ec947e4fb184129faa6d867, type: 3}
---- !u!1001 &1479125079747719428
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1380255984379089578}
-    m_Modifications:
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.6858
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 4.6858
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4.6858
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.68
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5161211829791416417, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-      propertyPath: m_Name
-      value: KunaiFirePoint
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
---- !u!4 &3051756071786600610 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4529754355431156134, guid: e1251e74b0cc0954397f8271a5c8974a, type: 3}
-  m_PrefabInstance: {fileID: 1479125079747719428}
-  m_PrefabAsset: {fileID: 0}

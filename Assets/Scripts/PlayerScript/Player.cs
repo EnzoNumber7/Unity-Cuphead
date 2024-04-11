@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public CharacterStateSlidingRight   stateRightSliding;
     public CharacterStateAttaking       stateAttakcing;
     public CharacterStateKunai          stateKunai;
+    public CharacterStateBalancing      stateBalancing;
 
     #endregion
 
@@ -60,21 +61,10 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
-        //stateMachine = new CharacterStateMachine();
-        //stateIdle = new CharacterStateIdle(stateMachine, this);
-        //stateMoving = new CharacterStateMoving(stateMachine, this);
-        //stateJumping = new CharacterStateJumping(stateMachine, this, _jumpForce);
-        //stateWallJumping = new CharacterStateWallJumping(stateMachine, this, _jumpForce);
-        //stateFalling = new CharacterStateFalling(stateMachine, this, _fallMultiplier);
-        //stateLeftSliding = new CharacterStateSlidingLeft(stateMachine, this, 1);
-        //stateRightSliding = new CharacterStateSlidingRight(stateMachine, this, -1);
-        //stateAttakcing = new CharacterStateAttaking(stateMachine, this) ;
-
         stateMachine.Initialize(stateIdle);
 
         _rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        //_isGrounded = _feet.GetComponent<FeetPlayer>().isGrounded;
 
         kunaiRadius = stateKunai.kunaiRadius;
         firePoint = stateKunai.firePoint;
@@ -97,16 +87,20 @@ public class Player : MonoBehaviour
         OnChangeState();
 
         stateMachine.currentState.UpdateFrame();
-
+        Debug.Log(stateMachine.currentState);
+       
         firePointPos();
 
-        if(Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") > 0)
         {
             transform.localScale = new Vector3(Math.Abs(transform.localScale.x), transform.localScale.y,0);
+
         }
         else if(Input.GetAxis("Horizontal") < 0)
         {
             transform.localScale = new Vector3(Math.Abs(transform.localScale.x) * -1, transform.localScale.y, 0);
+            firePoint.transform.localScale = new Vector3(Math.Abs(firePoint.transform.localScale.x) * -1, firePoint.transform.localScale.y, 0);
+
         }
 
         animator.SetBool(IS_GROUNDED_PARAM, _feet.GetComponent<FeetPlayer>().isGrounded);
