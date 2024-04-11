@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 3241427778656161335}
   - component: {fileID: 7380489234051557749}
   - component: {fileID: 3088941489528536945}
+  - component: {fileID: -8420858788042740314}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -324,6 +325,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   isAttaking: 0
   isUsed: 0
+  coins: 0
 --- !u!198 &2934161103270152250
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -5155,6 +5157,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 0}
+--- !u!114 &-8420858788042740314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4203531095909260269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14e7cc0d13ed2b944b54ad5bf55e9d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  counterText: {fileID: 0}
 --- !u!1 &4329665277982540876
 GameObject:
   m_ObjectHideFlags: 0
