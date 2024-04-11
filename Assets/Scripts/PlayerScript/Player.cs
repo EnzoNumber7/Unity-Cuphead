@@ -54,7 +54,8 @@ public class Player : MonoBehaviour
 
     public bool isUsed;
 
-    public int coins = 1;
+   [SerializeField] int myCoins = 0;
+    [SerializeField] int test;
 
 
     void Awake()
@@ -78,13 +79,16 @@ public class Player : MonoBehaviour
         kunaiRadius = stateKunai.kunaiRadius;
         firePoint = stateKunai.firePoint;
 
+        
+
 }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
+
 
     // Update is called once per frame
     void Update()
@@ -156,7 +160,10 @@ public class Player : MonoBehaviour
     
     public void GetCoins()
     {
-        coins++;
+        myCoins++;
+        print(myCoins);
+        test++;
+
     }
 
 }

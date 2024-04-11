@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextUpdate : MonoBehaviour
 {
-    public Player player;
-    public void Update()
+    [SerializeField] private TMP_Text text;
+    public void UpdateText()
     {
-        gameObject.GetComponent<Text>().text = player.coins.ToString();
+        
+        //text.text = gameObject.GetComponent<Player>().coins.ToString();
+            text.text = "kaka";
     }
 }
