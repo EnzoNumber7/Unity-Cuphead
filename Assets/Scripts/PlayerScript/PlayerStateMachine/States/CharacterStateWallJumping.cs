@@ -11,7 +11,7 @@ public class CharacterStateWallJumping : CharacterState
 
     public override void EnterState()
     {
-        player._rb.AddForce(new Vector2(jumpForce, jumpForce));
+        player._rb.AddForce(new Vector2(jumpForce, 5));
     }
     public override void ExitState() { }
 
@@ -30,14 +30,9 @@ public class CharacterStateWallJumping : CharacterState
             characterStateMachine.ChangeState(player.stateFalling);
         }
 
-        if (player._leftSide.GetComponent<LeftSide>().isTriggering)
-        {
-            player.stateMachine.ChangeState(player.stateLeftSliding);
-        }
-
         if (player._rightSide.GetComponent<LeftSide>().isTriggering)
         {
-            player.stateMachine.ChangeState(player.stateRightSliding);
+            player.stateMachine.ChangeState(player.stateSliding);
         }
 
     }
