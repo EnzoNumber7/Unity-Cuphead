@@ -922,7 +922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 308582320940624796, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
       propertyPath: m_GravityScale
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1380255984379089578, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1002,11 +1002,11 @@ PrefabInstance:
       objectReference: {fileID: 14548342}
     - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
       propertyPath: stopPower
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
       propertyPath: rangeRadius
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6839791754181709450, guid: f14028f002e1f2541b39a46592ccb2ae, type: 3}
       propertyPath: visuFirepoint
