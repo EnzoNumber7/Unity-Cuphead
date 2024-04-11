@@ -88,7 +88,6 @@ public class Player : MonoBehaviour
 
         stateMachine.currentState.UpdateFrame();
 
-        firePointPos();
 
         if (Input.GetAxis("Horizontal") > 0)
         {
@@ -124,7 +123,7 @@ public class Player : MonoBehaviour
             stateMachine.ChangeState(stateKunai);
             isUsed = true;
         }
-        if (stateKunai.currentKunai != null)
+        if (stateKunai.currentKunai != null && stateKunai.currentKunai.GetComponent<Kunai>().fallen == true)
         {
             if (Input.GetMouseButtonDown(1) && isUsed == true)
             {
