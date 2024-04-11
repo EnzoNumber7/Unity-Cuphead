@@ -31,15 +31,9 @@ public class CharacterStateFalling : CharacterState
         {
             characterStateMachine.ChangeState(player.stateIdle);
         }
-
-        if (player._leftSide.GetComponent<LeftSide>().isTriggering && Input.GetAxis("Horizontal") < 0)
-        {
-            player.stateMachine.ChangeState(player.stateLeftSliding);
-        }
-
         if (player._rightSide.GetComponent<LeftSide>().isTriggering)
         {
-            player.stateMachine.ChangeState(player.stateRightSliding);
+            player.stateMachine.ChangeState(player.stateSliding);
         }
         if (Input.GetMouseButtonUp(1))
         {

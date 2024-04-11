@@ -37,15 +37,9 @@ public class CharacterStateJumping : CharacterState
         {
             characterStateMachine.ChangeState(player.stateMoving);
         }
-
-        if (player._leftSide.GetComponent<LeftSide>().isTriggering)
-        {
-            player.stateMachine.ChangeState(player.stateLeftSliding);
-        }
-
         if (player._rightSide.GetComponent<LeftSide>().isTriggering)
         {
-            player.stateMachine.ChangeState(player.stateRightSliding);
+            player.stateMachine.ChangeState(player.stateSliding);
         }
         if (Input.GetMouseButtonUp(1))
         {

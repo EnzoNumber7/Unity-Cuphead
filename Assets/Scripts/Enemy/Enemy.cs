@@ -16,16 +16,20 @@ public class Enemy : MonoBehaviour
 
     public Player player;
 
+    private Renderer renderer;
+    private bool isAppear = false;
+
     void Start()
     {
-
         rb = GetComponent<Rigidbody2D>();
-        StartCoroutine(ShootTime());
+        renderer = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
         //if(gameObject.transform.position.x - player.transform.position.x != 0)//Change la direction de l'ennemi en fonction de la pos du joueur
         //{
         //    float direction = (gameObject.transform.position.x - player.transform.position.x / System.Math.Abs(gameObject.transform.position.x - player.transform.position.x));
@@ -33,6 +37,8 @@ public class Enemy : MonoBehaviour
         //    transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * direction, transform.localScale.y, 0) ;
 
         //}
+
+        TriggerShoot();
 
         if (hp <= 0)
             Destroy(gameObject);
@@ -47,19 +53,19 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         hp -= damage;
-        print("aie");
     }
 
     public void EnemyShoot()
     {
-            //if (currentShuriken == null)
-            //{
-            //    GameObject player = GameObject.FindGameObjectWithTag("Player");
-            //    float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
-            //    firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
 
-            //    currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
-            //}
+        //if (currentShuriken == null)
+        //{
+        //    GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //    float angle = Mathf.Atan2(player.transform.position.y - transform.position.y, player.transform.position.x - transform.position.x) * Mathf.Rad2Deg - 90f;
+        //    firePoint.transform.localRotation = Quaternion.Euler(0, 0, angle);
+
+        //    currentShuriken = Instantiate(shuriken, firePoint.transform.position, firePoint.transform.rotation);
+        //}
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -75,11 +81,11 @@ public class Enemy : MonoBehaviour
         Vector2 entityPos = entity.transform.position;
         if (entityPos.x < transform.position.x)
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(-100, 2);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(2, 5);
         }
         else if (entityPos.x > transform.position.x)
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(100, 2);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-2, 5);
         }
     }
 
@@ -94,6 +100,21 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         
+    }
+
+    public void TriggerShoot()
+    {
+        if (renderer.isVisible && isAppear == false)
+        {
+            isAppear= true;
+            StartCoroutine(ShootTime());
+            
+        }
+        else if (!renderer.isVisible)
+        {
+            StopCoroutine(ShootTime());
+            isAppear= false;
+        }
     }
 
 }

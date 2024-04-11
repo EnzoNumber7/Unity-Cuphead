@@ -17,8 +17,7 @@ public class Player : MonoBehaviour
     public CharacterStateJumping        stateJumping;
     public CharacterStateWallJumping    stateWallJumping;
     public CharacterStateFalling        stateFalling;
-    public CharacterStateSlidingLeft    stateLeftSliding;
-    public CharacterStateSlidingRight   stateRightSliding;
+    public CharacterStateSliding        stateSliding;
     public CharacterStateAttaking       stateAttakcing;
     public CharacterStateKunai          stateKunai;
     public CharacterStateBalancing      stateBalancing;
@@ -88,7 +87,9 @@ public class Player : MonoBehaviour
 
         stateMachine.currentState.UpdateFrame();
 
-        firePointPos();
+        //firePointPos();
+
+        //print(stateMachine.currentState);
 
         if (Input.GetAxis("Horizontal") > 0)
         {
