@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("EnzoScene");
+        SceneManager.LoadScene("Level");
     }
     public void QuitGame()
     {

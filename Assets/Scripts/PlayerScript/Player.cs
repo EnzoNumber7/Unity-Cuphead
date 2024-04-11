@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     //Kunai
     private float kunaiRadius;
     private GameObject firePoint;
+    public BlockedDirection blockedDirection = BlockedDirection.None;
 
     public bool isUsed;
 

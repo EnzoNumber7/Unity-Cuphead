@@ -15,7 +15,20 @@ public class CharacterStateMoving : CharacterState
     {
         base.UpdateFrame();
 
-        player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100, player._rb.velocity.y);
+        if (player.blockedDirection == BlockedDirection.None)
+        {
+            player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100, player._rb.velocity.y);
+        }
+        else if(player.blockedDirection == BlockedDirection.Left && Input.GetAxis("Horizontal") > 0)
+        {
+            player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100, player._rb.velocity.y);
+            player.blockedDirection = BlockedDirection.None;
+        }
+        else if (player.blockedDirection == BlockedDirection.Right && Input.GetAxis("Horizontal") < 0)
+        {
+            player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100, player._rb.velocity.y);
+            player.blockedDirection = BlockedDirection.None;
+        }
     }
 
     public override void OnChangeState()
