@@ -51,8 +51,12 @@ public class CharacterStateKunai : CharacterState
         {
             endAttack = CheckKunai();
         }
+        else
+        {
+            endAttack = true;
+        }
 
-        if (endAttack) //Attaquer avec le kunai
+        if (endAttack && currentKunai != null) //Attaquer avec le kunai
         {
             GameObject target = currentKunai.GetComponent<Kunai>().transform.parent.gameObject;
             if (target.tag == "Enemy")
