@@ -31,10 +31,10 @@ public class CharacterStateFalling : CharacterState
         {
             characterStateMachine.ChangeState(player.stateIdle);
         }
-        if (player._rightSide.GetComponent<LeftSide>().isTriggering)
-        {
-            player.stateMachine.ChangeState(player.stateSliding);
-        }
+        //if (player._rightSide.GetComponent<LeftSide>().isTriggering)
+        //{
+        //    player.stateMachine.ChangeState(player.stateSliding);
+        //}
         if (Input.GetMouseButtonUp(1))
         {
             player.stateMachine.ChangeState(player.stateBalancing);

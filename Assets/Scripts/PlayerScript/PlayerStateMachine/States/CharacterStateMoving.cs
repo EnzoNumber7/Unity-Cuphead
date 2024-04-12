@@ -14,7 +14,7 @@ public class CharacterStateMoving : CharacterState
     public override void UpdateFrame()
     {
         base.UpdateFrame();
-
+            
         if (player.blockedDirection == BlockedDirection.None)
         {
             player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100, player._rb.velocity.y);

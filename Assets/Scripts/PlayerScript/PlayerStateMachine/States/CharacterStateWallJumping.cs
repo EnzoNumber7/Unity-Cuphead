@@ -30,10 +30,10 @@ public class CharacterStateWallJumping : CharacterState
             characterStateMachine.ChangeState(player.stateFalling);
         }
 
-        if (player._rightSide.GetComponent<LeftSide>().isTriggering)
-        {
-            player.stateMachine.ChangeState(player.stateSliding);
-        }
+        //if (player._rightSide.GetComponent<LeftSide>().isTriggering)
+        //{
+        //    player.stateMachine.ChangeState(player.stateSliding);
+        //}
 
     }
 }

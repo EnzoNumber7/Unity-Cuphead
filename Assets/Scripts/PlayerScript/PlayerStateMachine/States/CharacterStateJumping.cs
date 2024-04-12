@@ -22,7 +22,7 @@ public class CharacterStateJumping : CharacterState
     {
         base.UpdateFrame();
 
-        //player._rb.velocity += Vector2.right * Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100;
+        player._rb.velocity = new Vector2(Input.GetAxis("Horizontal") * player._speed * Time.deltaTime * 100, player._rb.velocity.y);
 
     }
 
@@ -30,17 +30,18 @@ public class CharacterStateJumping : CharacterState
     {
         if(player._rb.velocity.y < 0 || Input.GetKeyUp(KeyCode.Space))
         {
+            player._rb.velocity = new Vector2(0, 0);
             characterStateMachine.ChangeState(player.stateFalling);
         }
 
-        if (Input.GetAxis("Horizontal") != 0)
-        {
-            characterStateMachine.ChangeState(player.stateMoving);
-        }
-        if (player._rightSide.GetComponent<LeftSide>().isTriggering)
-        {
-            player.stateMachine.ChangeState(player.stateSliding);
-        }
+        //if (Input.GetAxis("Horizontal") != 0)
+        //{
+        //    characterStateMachine.ChangeState(player.stateMoving);
+        //}
+        //if (player._rightSide.GetComponent<LeftSide>().isTriggering)
+        //{
+        //    player.stateMachine.ChangeState(player.stateSliding);
+        //}
         if (Input.GetMouseButtonUp(1))
         {
             characterStateMachine.ChangeState(player.stateBalancing);

@@ -84,9 +84,7 @@ public class Player : MonoBehaviour
     {
         Respawn();
         OnChangeState();
-        Debug.Log(stateMachine.currentState);
         stateMachine.currentState.UpdateFrame();
-
 
         if (Input.GetAxis("Horizontal") > 0)
         {
@@ -106,6 +104,11 @@ public class Player : MonoBehaviour
         animator.SetFloat(SPEEDX_PARAM, Math.Abs(_rb.velocity.x));
         animator.SetFloat(SPEEDY_PARAM, Math.Abs(_rb.velocity.y));
 
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     public void OnChangeState()

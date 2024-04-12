@@ -21,10 +21,10 @@ public class CharacterStateSliding : CharacterState
             characterStateMachine.ChangeState(player.stateIdle);
         }
 
-        if (player._rightSide.GetComponent<LeftSide>().isTriggering == false)
-        {
-            characterStateMachine.ChangeState(player.stateFalling);
-        }
+        //if (player._rightSide.GetComponent<LeftSide>().isTriggering == false)
+        //{
+        //    characterStateMachine.ChangeState(player.stateFalling);
+        //}
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
