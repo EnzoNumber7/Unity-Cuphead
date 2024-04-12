@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
             {
                 stateKunai.currentKunai.GetComponent<Kunai>().Detach(transform.position);
             }
-            if(Input.GetKeyUp(KeyCode.P))
+            if(Input.GetKeyUp(KeyCode.E))
             {
                 stateKunai.currentKunai.GetComponent<Kunai>().DeleteKunai();
             }

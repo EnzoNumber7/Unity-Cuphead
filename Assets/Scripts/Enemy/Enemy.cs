@@ -26,6 +26,8 @@ public class Enemy : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         renderer = GetComponent<Renderer>();
+
+        StartCoroutine(ShootTime());
     }
 
     // Update is called once per frame
@@ -41,7 +43,7 @@ public class Enemy : MonoBehaviour
 
         //}
 
-        TriggerShoot();
+        //TriggerShoot();
 
         if (hp <= 0)
             Destroy(gameObject);
